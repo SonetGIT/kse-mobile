@@ -1,58 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import { makeStyles} from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import Header from './components/Header.jsx'
+import Authentication from './components/Authentication.jsx'
+import Home from './components/Home.jsx';
 
-function App() {
+export default function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [userProfile, setUserProfile] = useState({});
+  const [token, setToken] = useState(null);
+   // wsEndpoint - IP адрес сокета, для обмена данными с клиентом
+  const [wsEndpoint] = useState("ws://192.168.2.109:3120") //Local
+  const [kseRESTApi] = useState("http://192.168.2.150:5002") //Local KFB main REST
+
+  function authenticate(profile, token){
+    setUserProfile(profile)
+    setToken(token)
+    setAuthenticated(true)
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    // <Home></Home>
+    authenticated === false ?
+      <div style={{border:'groove 2px #1565c0', paddingBottom:40, width:'100%', height:'100vh'}}>
+      <Header/>
+      <Authentication
+      kseRESTApi={kseRESTApi}
+      authenticate={authenticate}
+      />
+      </div>
+      :
+      <Grid container>
+        <Grid item xs={12}>
+          <Home
+            // VARS
+            wsEndpoint={wsEndpoint}
+            kseRESTApi={kseRESTApi}
+            userProfile={userProfile}
+            token={token}
+            // FUNCTIONS
+            setAuthenticated={setAuthenticated}
+            setUserProfile={setUserProfile}
+          /> 
+        </Grid>
+      </Grid>
   );
 }
-
-export default App;

@@ -1,0 +1,192 @@
+{
+  "Administrator": {
+    "null": [],
+    "MainRefGridBtns": [
+      {
+        "name": "showRefSearchForm",
+        "label": "Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"      
+      }
+    ],
+    "RefGridBtns": [
+      {
+        "name":"showEditRef",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "UserGridBtns": [
+      {
+        "name":"showEditUserForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "ContractsGridBtns": [
+      {
+        "name":"showContractEditForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "AccountsGridBtns": [
+      {
+        "name":"showAccountEditForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "AccountPositionsGridBtns": [
+      {
+        "name":"showAccountPositionForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "MSCurrAccountsGridBtns": [
+      {
+        "name":"showMSCurrAccountViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "StockCurrencyGridBtns": [
+      {
+        "name":"showStockCurrenciesViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsGridBtns": [
+      {
+        "name":"showStockInstrumentsViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "MarketsGridBtns": [
+      {
+        "name":"showMarketSectorsSearchForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "MarketsSectorsGridBtns": [
+      {
+        "name":"showSectorInstrumentGroupsSearchForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "SectorInstrumentGroupsGridBtns": [
+      {
+        "name":"showInstrumentGroupFinanceInstrumentsSearchForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "InstrumentGroupFinanceInstrumentsGridBtns": [
+      {
+        "name":"showInstrumentGroupFinanceInstrumentViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "AccountPositionsCurrenciesGridBtns": [
+      {
+        "name":"showAccountPositionsCurrenciesViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ]    
+  },
+  "Operator": {
+    "null": [],
+    "MainRefGridBtns": [
+      {
+        "name": "showRefSearchForm",
+        "label": "Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"      
+      }
+    ],
+    "RefGridBtns": [
+      {
+        "name":"showEditRef",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "UserGridBtns": [
+      {
+        "name":"showEditUserForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "ContractsGridBtns": [
+      {
+        "name":"showContractEditForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "AccountsGridBtns": [
+      {
+        "name":"showAccountEditForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "AccountPositionsGridBtns": [
+      {
+        "name":"showAccountPositionForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "MSCurrAccountsGridBtns": [
+      {
+        "name":"showMSCurrAccountViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"  
+      }
+    ],
+    "StockCurrencyGridBtns": [
+      {
+        "name":"showStockCurrenciesViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsGridBtns": [
+      {
+        "name":"showStockInstrumentsViewForm",
+        "label":"Открыть",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      }
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "enumConfig": {
+    "42ff2fe7-d54b-4eef-a13f-29c22bc7c789": {
+      "data": {
+        "id": "id",
+        "label": ["name"]
+      },
+      "apiName": "/api/users/GetRoles"
+    },
+    "1fd4d8d5-6f3b-4a2e-aa99-90eba3c354f9": {
+      "data": {
+        "id": "id",
+        "user_id": ["user_id"],
+        "name": ["name"],
+        "firstname": ["firstname"],
+        "lastname": ["lastname"],
+        "attributes": ["attributes"]
+      },
+      "apiName": "/api/Users/Gets"
+    },
+    "ab14dc6d-0139-4dd4-ab65-172cacb636f8": {
+      "data": {
+        "id": "id",
+        "label": ["name"]
+      },
+      "apiName": "/api/Markets"
+    },
+    "3e66280f-9295-46af-8855-cfce4d98faf1": {
+      "data": {
+        "id": "id",
+        "label": ["name"]
+      },
+      "apiName": "/api/InstrumentGroups"
+    },
+    "3e819d7e-25d0-4a04-a3ff-092fd348a375": {
+      "data": {
+        "id": "id",
+        "label": ["code", " ", "-", " ", "emitentName"]
+      },
+      "apiName": "/api/FinanceInstruments"
+    },
+    "3bac793e-bc73-44f4-a18f-8c1a55efe919": {
+      "data": {
+        "id": "id",
+        "label": ["code", "-", "name"]
+      },
+      "apiName": "/api/Currencies"
+    },
+    "25996f57-b87b-45f8-83df-de45ef7f612e": {
+      "data": {
+        "id": "id",
+        "label": ["presentName"]
+      },
+      "apiName": "/api/FixingStatuses"
+    },
+    "522b0458-59b1-4d2e-9474-8133b93b2afb": {
+      "data": {
+        "id": "instrumentId",
+        "label": ["instrumentCode"],
+        "currentPrice": ["currentPrice"]
+      },
+      "apiName": "/api/FixTrading/GetInitials"
+    },
+    "630525f6-cac1-4930-8f9b-8f927dd96ae2": {
+      "data": {
+        "id": "id",
+        "label": ["pastName"]
+      },
+      "apiName": "/api/TradeStatuses"
+    },
+    "e67a3f49-48e0-4d93-9b05-07ca0391d021": {
+      "data": {
+        "id": "id",
+        "label": ["futureName"]
+      },
+      "apiName": "/api/TradeStatuses"
+    },
+    "c324d86f-3a3b-43b2-9514-d983b2982794": {
+      "data": {
+        "id": "id",
+        "label": ["accountNo"]
+      },
+      "apiName": "/api/Accounts"
+    },
+    "3fcf4341-240d-4f5d-af00-0a5f5c9e6b82": {
+      "data": {
+        "id": "id",
+        "label": ["astatus", "-", "id", " ", "name"]
+      },
+      "apiName": "/api/AccountTypes"
+    },
+    "df59dde0-68fd-4a8b-84e1-aa33531d2fe6": {
+      "data": {
+        "id": "id",
+        "label": ["name"]
+      },
+      "apiName": "/api/MarketSectors"
+    },
+    "5b78d9dd-821d-4c6a-a00a-3af85224fbc4": {
+      "data": {
+        "id": "id",
+        "label": ["name"]
+      },
+      "apiName": "/api/Organizations"
+    },
+    "58b19f13-64ba-49c1-bdbe-1b2c88697414": {
+      "data": {
+        "id": "id",
+        "label": ["letter"],
+        "reportName": ["name"],
+        "formDefId": ["formDefId"]
+      },
+      "apiName": "/api/ReportTypes"
+    }
+  }
+}
+

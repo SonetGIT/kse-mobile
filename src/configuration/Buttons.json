@@ -1,0 +1,806 @@
+{
+  "Administrator": {
+    "null": [],
+    "MainRefSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "close",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "RefSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showCreateRef",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "RefEditBtns": [
+      {
+        "name": "updateRef",
+        "label": "Сохранить"
+      },
+      {
+        "name": "deleteRef",
+        "label": "Удалить"
+      },
+      {
+        "name": "backToRefSearchForm",
+        "label": "Отмена"
+      }
+    ],
+    "RefSaveBtns": [
+      {
+        "name": "saveRef",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToMainRef",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "UserSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showCreateUserForm",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "UserEditBtns": [
+      {
+        "name": "updateUser",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "resetPassword",
+        "label": "Сбросить пароль",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      },
+      {
+        "name": "blockUser",
+        "label": "Заблокировать",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      },
+      {
+        "name": "unBlockUser",
+        "label": "Разблокировать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToUserSearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "CreateUserBtns": [
+      {
+        "name": "saveUser",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToUserSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ResetPassBtns": [
+      {
+        "name": "resetPassSaveUser",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToUserGridForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportSelectBtns": [
+      {
+        "name": "selectReport",
+        "label": "Продолжить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportCreateBtns": [
+      {
+        "name": "createReport",
+        "label": "Сформировать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportViewBtns": [
+      {
+        "name": "reportToPDF",
+        "label": "PDF",
+        "backgroundColor": "#F49843",
+        "fontColor": "white"
+      },
+      {
+        "name": "reportToExcel",
+        "label": "EXCEL",
+        "backgroundColor": "#047535",
+        "fontColor": "white"
+      },
+      {
+        "name": "reportToWord",
+        "label": "WORD",
+        "backgroundColor": "#1A58CB",
+        "fontColor": "white"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showContractCreatingForm",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsCreateBtns": [
+      {
+        "name": "saveContract",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToContractsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsEditBtns": [
+      {
+        "name": "updateContract",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToContractsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "InstrumentsExchangeWithCDSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "createAccount",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountCreateBtns": [
+      {
+        "name": "saveAccount",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToAccountsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountEditBtns": [
+      {
+        "name": "updateAccount",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showAccountPositions",
+        "label": "Позиции",
+        "backgroundColor": "#FFC863",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToAccountsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountPositionsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToAccountEditForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "MSCurrAccountsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "MSCurrAccountsViewBtns": [
+      {
+        "name": "backToMSCurrAccountsSearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "showStockCurrenciesSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockCurrencyViewFormBtns": [
+      {
+        "name": "backToStockCurrencySearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsViewFormBtns": [
+      {
+        "name": "backToStockInstrumentsSearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "MarketsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "MarketsSectorsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "SectorInstrumentGroupsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "InstrumentGroupFinanceInstrumentsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountPositionsCurrenciesSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ]
+  },
+  "Operator": {
+    "null": [],
+    "MainRefSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "close",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "RefSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showCreateRef",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "RefEditBtns": [
+      {
+        "name": "updateRef",
+        "label": "Сохранить"
+      },
+      {
+        "name": "deleteRef",
+        "label": "Удалить"
+      },
+      {
+        "name": "backToRefSearchForm",
+        "label": "Отмена"
+      }
+    ],
+    "RefSaveBtns": [
+      {
+        "name": "saveRef",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToMainRef",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "UserSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "UserEditBtns": [
+      {
+        "name": "backToUserSearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "CreateUserBtns": [
+      {
+        "name": "backToUserSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ResetPassBtns": [
+      {
+        "name": "backToUserGridForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportSelectBtns": [
+      {
+        "name": "selectReport",
+        "label": "Продолжить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportCreateBtns": [
+      {
+        "name": "createReport",
+        "label": "Сформировать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ReportViewBtns": [
+      {
+        "name": "reportToPDF",
+        "label": "PDF",
+        "backgroundColor": "#F49843",
+        "fontColor": "white"
+      },
+      {
+        "name": "reportToExcel",
+        "label": "EXCEL",
+        "backgroundColor": "#047535",
+        "fontColor": "white"
+      },
+      {
+        "name": "reportToWord",
+        "label": "WORD",
+        "backgroundColor": "#1A58CB",
+        "fontColor": "white"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "showContractCreatingForm",
+        "label": "Создать",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsCreateBtns": [
+      {
+        "name": "saveContract",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToContractsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "ContractsEditBtns": [
+      {
+        "name": "updateContract",
+        "label": "Сохранить",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToContractsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "InstrumentsExchangeWithCDSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountCreateBtns": [
+      {
+        "name": "backToAccountsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountEditBtns": [
+      {
+        "name": "showAccountPositions",
+        "label": "Позиции",
+        "backgroundColor": "#FFC863",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToAccountsSearchForm",
+        "label": "Отмена",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "AccountPositionsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "backToAccountEditForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "MSCurrAccountsSearchBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "showStockCurrenciesSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockCurrencyViewFormBtns": [
+      {
+        "name": "backToStockCurrencySearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsSearchFormBtns": [
+      {
+        "name": "findDocument",
+        "label": "Найти",
+        "backgroundColor": "#D1FBD1",
+        "fontColor": "black"
+      },
+      {
+        "name": "cancel",
+        "label": "Закрыть",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ],
+    "StockInstrumentsViewFormBtns": [
+      {
+        "name": "backToStockInstrumentsSearchForm",
+        "label": "Назад",
+        "backgroundColor": "#FBDCDE",
+        "fontColor": "black"
+      }
+    ]
+  }
+}
