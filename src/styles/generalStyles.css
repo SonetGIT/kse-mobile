@@ -1,0 +1,289 @@
+.sectionBuilderStyle{
+    margin-top: 35px;
+    border: 1px dashed #212121;
+    background: linear-gradient(to bottom, #4d6969, #c7cccf);
+    /* font-family: Garamond; */
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #FFFAFA; 
+    font-size: 16px;
+}
+.bodyBuilderStyle{
+    padding-top: 4px;
+    /* font-family: Garamond;   */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color:#212121;
+    text-align: left;
+    /* text-shadow:#FFFAFA 1px 1px; */
+}
+.detailForm{
+    width:700px;
+    /* font-family: Garamond;   */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color:#212121;
+    border: 1px dashed #78909c;
+}
+
+.mainGrid{
+    margin-top:25px;
+    margin-left:650px;   
+    border-radius:7px;
+    width:700px;
+}
+.pagination-rows-amount-style{
+    color: black;
+    font-size: 16px;
+    padding-right: 5px;
+}
+/* DRAGGABLE DIVS */
+.main-table-label-div-style{
+    text-align-last: left;
+    padding-left: 30px;
+    border-bottom: 1px solid grey;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background-color: #cfd8dc;
+    font-weight: bold;
+}
+.main-table-style{
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden;
+    border-radius: 7px;
+    white-space: nowrap; 
+    table-layout: auto;
+}
+.main-table-header-td-style{
+    min-width: 40px;
+    color: black;
+    font-size: 11px;
+    border: thin solid grey;
+    text-align: left;
+}
+.main-table-tbody-td-style{
+    font-size: 12;
+    color: black;
+    font-size: 11px;
+    border-bottom: thin solid grey;
+    cursor: pointer;
+}
+.dragble-div-header-table-style{
+    border: 1px solid #78909c;
+    margin-top: 1;
+    margin-bottom: 2;
+    text-align: center;
+    font-weight: bold;
+}
+.dragble-div-header-td-style{
+    text-align: center;
+    line-height: 2px;
+    font-size: 15px;
+    /* font-family: "Courier New" */
+}
+.dragble-div-body-style{
+    border: 1px ridge #78909c;
+    background-color: #dee4e7;
+    margin-top: 1px;
+}
+.dragble-div-body-td-text-style{
+    font-size: 15px;
+    /* font-family: "Courier New"; */
+    font-weight: bold;
+}
+.dragble-div-body-td-simple-text-style{
+    font-size: 12px;
+    /* font-family: "Courier New"; */
+    /* font-weight: bold; */
+}
+.dateTimePicker{
+    font-size: small;
+}
+.add-icon-style{    
+    margin-left: 2px;
+    cursor: pointer;
+    font-size: 5ex;
+}
+.reduce-icon-style{
+    margin-left: 2px;
+    cursor: pointer;
+    font-size: 3ex;
+}
+/* TABLE */
+.main-table-style{
+    /* width: 100%; */
+    border-collapse: collapse;
+    border-style: hidden;
+    /* border-radius: 8px; */
+    /* display: grid; */
+    overflow: auto;
+    grid-template-columns:
+            minmax(150px, 3fr)
+            minmax(150px, 1fr)
+            minmax(150px, 1fr)
+            minmax(150px, 1fr)
+            minmax(150px, 1fr);
+}
+.thead-style{
+    background-color: #cfd8dc;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+.td-head-style{
+    background-color: #cfd8dc;
+    color: black;
+    font-size: 14px;
+    border: 1px solid grey;
+    text-align: center;
+}
+.td-head-style-2row{
+    color: black;
+    font-size: 12px;
+    border: thin solid grey;
+    text-align: center;
+}
+.td-style{
+    color: black;
+    font-size: 12px;
+    border-bottom: thin solid grey;
+    text-align: center;
+}
+.td-head-first-child{
+    border-top-left-radius: 10px;
+    color: black;
+    font-size: 13px;
+    border: thin solid grey;
+    text-align: center;
+}
+.td-head-last-child{
+    border-top-right-radius: 10px;
+    color: black;
+    font-size: 13px;
+    border: thin solid grey;
+    text-align: center;
+}
+.body-style{
+    font-size: 12;
+}
+.td-body-style{
+    align-items: left;
+    color: black;
+    font-size: 12px;
+    border-bottom: 1px solid grey
+}
+.instrument-properties-td-text-style{
+    font-size: 15px;
+}
+/* Resizable table */
+.resize-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden;
+    display: grid;
+    grid-template-columns: 
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr)
+            minmax(200px, 1fr);
+}
+.resize-table-thead,
+.resize-table-tbody,
+.resize-table-tr {
+    display: contents;
+    background-color: #C7EEFF;
+}
+.resize-table-th {
+    position: relative;
+    font-size: 12px;
+    background-color: #cfd8dc;
+    border: 1px solid grey;
+}
+.resize-table-td {
+    text-align: left;
+    min-width: 10px;
+    color: black;
+    font-size: 12px;
+    border-bottom: 1px solid grey;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
+.resize-table-th-span,
+.resize-table-td-span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+}
+.resize-table-tr-td {
+    border-top: 1px solid grey;
+}
+.resize-handle {
+    display: block;
+    position: absolute;
+    cursor: col-resize;
+    width: 7px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+    border-right: 2px solid transparent;
+}
+.resize-handle:hover {
+    border-color: #ccc;
+}
+.resize-handle.active {
+    border-color: #517ea5;
+}
+

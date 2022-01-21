@@ -21,11 +21,11 @@ import Card from '@material-ui/core/Card';
 const useStyles = makeStyles((theme) => ({
   p:{ 
     margin:10, 
-    fontFamily:'serif', 
+    fontFamily:'Roboto', 
     color:'#1565c0',
     fontWeight:'bold',
     textAlign:'center',
-    fontSize:20
+    fontSize:18
   },
   textField:{
     marginBottom:20,
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor:'#ff7043',   
     marginTop:45,
     marginBottom:20,
-    fontFamily:'serif',
+    fontFamily:'Roboto',
     fontSize:15,    
     width:260,
     height:37

@@ -2,17 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import { IoMdArrowDropright} from 'react-icons/io';
 import { IoMdArrowDropleft } from 'react-icons/io';
-import {ImStackoverflow} from 'react-icons/im';
-import {MdDeleteSweep} from 'react-icons/md';
-import {FaEllipsisV} from 'react-icons/fa';
-import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
-import Select from 'react-select';
 import Snackbar from '@material-ui/core/Snackbar';
-import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
-import { v4 as uuidv4 } from 'uuid';
-
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
@@ -34,10 +26,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ActiveBids(props) {
+export default function Briefcase(props) {
   const cls = useStyles();
   const [kseRESTApi] = useState(props.kseRESTApi)
-  const [token] = useState(props.token)
   console.log("API:", kseRESTApi)
   const [docList, setDocList] = useState(null)
   const [enumOptions, setEnumOptions] = useState({})
@@ -45,9 +36,6 @@ export default function ActiveBids(props) {
   const [currIndex, setCurrIndex] = useState(0)
   const [showSnackBar, setShowSnackBar] = useState(false)
   const [snackBarMessage, setSnackBarMessage] = useState("")
-  const [selectedBid, setSelectedBid] = useState({bidId: null})
-  const [activeBidsKey, setActiveBidsKey] = useState(null)
-  const [showOpenEllipsis, setShowOpenEllipsis] = useState(false)
 
   // FIELDS
   const [fieldValue, setFieldValue] = useState({
@@ -55,11 +43,10 @@ export default function ActiveBids(props) {
   })
 
   useEffect(async ()=>{
-    // let docL = await getActiveBids()
-    getActiveBids()
-    // setDocList(docL)
-    // createEnumOptions(docL)
-    // console.log("DOCL BIDS", docL)    
+    let docL = await getActiveBids()
+    setDocList(docL)
+    createEnumOptions(docL)
+    console.log("DOCL INSTR2", docL)    
   },[])
   
   function handleSelectChange(option){
@@ -69,14 +56,12 @@ export default function ActiveBids(props) {
     console.log("OPT", {[option.name]: option.value})
     // console.log("OPT", option, fieldValue)
   }
+  
   function handleCloseSnackBar(){
     setShowSnackBar(false)
   }
 
-  function getUUID(){
-    return uuidv4()
-  }
-  async function createEnumOptions(enums){   
+  async function createEnumOptions(enums){
     let newEnumOptions = {}
     let options = [{
       "value": null,
@@ -99,53 +84,20 @@ export default function ActiveBids(props) {
   }
 
   async function getActiveBids(){
-    await fetch(kseRESTApi + "/api/Trading/GetActiveBids", 
+    let docList = await fetch(kseRESTApi + "/api/Accounts/ViewInstruments", 
       {
         "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
       }
     )
     .then(response => response.json())
     .then(function(res){
-      setDocList(res.data)
-      setCurrIndex(0)
-      setActiveBidsKey(getUUID())
-      // return res.data
+      return res.data
     })
     .catch(function (error) {
-      console.log("Collecting docList GetActiveBids error: ", error)
+      console.log("Collecting docList GetViewInstruments error: ", error)
       return []
     })
     return docList
-  }
-
-  function cancelBid(){
-    swal({
-      text: "Вы точно хотите снять заявку?",
-      icon: "warning",
-      buttons: {yes: "Да", cancel: "Отмена"}
-    })
-    .then(async(click) => {
-      if(click === "yes"){
-        await fetch(kseRESTApi + "/api/Trading/CancelOrder?bidId=" + docList[currIndex].bidId,
-          {
-            "headers": { "content-type": "application/json", "Authorization": "Bearer " + token},
-          }
-        )
-        .then(response => response.json())
-        .then(function(res){
-            console.log("Cancel bid", res)
-            if(res.isSuccess === true){
-              props.callSuccessToast("Заявка снята!")
-              //handleCloseMenu()
-              getActiveBids()
-            }
-            else{
-              props.callErrorToast(res.errors[0])
-            }
-          }
-        )
-      }
-    })
   }
 
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
@@ -168,56 +120,36 @@ export default function ActiveBids(props) {
     else{
       setCurrIndex(currIndex + 1)
     }    
-  }  
+  }
 
   /*ОТРИСОВКА*****************************************************************************************************************************************/
-  return (    
-    <div key={activeBidsKey}>      
-      <Grid>
-        <Select 
-          placeholder= {'Поиск по коду'}
-          name = {'instrumentCode'}
-          value = {selectedOptions['instrumentCode']}
-          onChange = {handleSelectChange}
-          options = {enumOptions['instrumentCode']}
-        />
-      </Grid>
+  return (
+    <div>
       {docList !== null &&
-        <Grid>        
-          <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse: "collapse"}}>
-            <tr style={{backgroundColor:'#ffd2c4'}}>
-              <td style={{ paddingLeft:7, width:24}}><ImStackoverflow size={13} style={{color:'#dd2c00', marginTop:2}}/></td>              
-              <td>Заявки</td>          
-              <td align='right' style={{backgroundColor:'#ffd2c4'}}>
-                <FaEllipsisV 
-                  size={13}
-                  onClick={()=> setShowOpenEllipsis(!showOpenEllipsis)}
-                  style={{color:'#dd2c00', fontWeight:'bold', paddingTop:2}}
-                />
-                                
-              </td>
-            </tr>
-          </table>
-          {docList.length !== 0 &&
+        <Grid>
+          <table style={{width:'100%', color:'#424242', fontFamily:'Roboto', fontSize:13}}>          
+            <th style={{backgroundColor:'#ffd2c4'}}>
+              Позиции по инструментам
+            </th>
+          </table>           
             <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
               <tr>
-                <td className={cls.td}> Код </td>
-                <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       
+                <td className={cls.td}> Организация </td>
+                <td className={cls.td1}>{docList[currIndex].organizationId}</td>       
               </tr>
               <tr>
-                <td className={cls.td}> B/S </td>
-                <td className={cls.td1}>{docList[currIndex].direction}</td>
+                <td className={cls.td}> Фин. инструмент </td>
+                <td className={cls.td1}>{docList[currIndex].financeInstrumentId}</td>
               </tr>
               <tr>
-                <td className={cls.td}> Цена </td>
-                <td className={cls.td1}>{docList[currIndex].price}</td>
+                <td className={cls.td}> Счет </td>
+                <td className={cls.td1}>{docList[currIndex].accountNo}</td>
               </tr>
               <tr>
                 <td className={cls.td}> Количество </td>
-                <td className={cls.td1}>{docList[currIndex].amount}</td>
+                <td className={cls.td1}>{docList[currIndex].quantity}</td>
               </tr>
             </table>
-          }          
           <Grid 
           container
           direction='row'
@@ -227,22 +159,12 @@ export default function ActiveBids(props) {
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>LeftClick(currIndex)}>
               <IoMdArrowDropleft/>
             </IconButton>
-              <tr style={{fontSize:10, clolor:'#757575', maxWidth:50, borderColor:'white', textAlign:'center', paddingTop:2}}>{currIndex +1} / {docList.length} </tr>
+              <tr style={{fontSize:10, clolor:'#757575', maxWidth:50, textAlign:'center'}}>{currIndex +1} / {docList.length} </tr>
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>RightClick(currIndex)}>
               <IoMdArrowDropright/>
             </IconButton>
           </Grid>        
         </Grid>
-      }
-      {showOpenEllipsis === true &&
-        <MenuItem>
-        Подать заявку
-        </MenuItem>
-      //   <MdDeleteSweep 
-      //     size='18' 
-      //     style={{color:'#1266F1', fontWeight:'bold'}}
-      //     onClick={()=> cancelBid()}
-      // />
       }
       <Snackbar
         style={{textAlign:'center', color:'red'}}
@@ -255,7 +177,7 @@ export default function ActiveBids(props) {
           horizontal: 'center'
           }}
         >
-      </Snackbar>      
+      </Snackbar>
     </div>
   );
 }

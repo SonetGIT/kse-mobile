@@ -37,7 +37,7 @@
         "id": "id",
         "label": ["code", " ", "-", " ", "emitentName"]
       },
-      "apiName": "/api/FinanceInstruments"
+      "apiName": "/api/FinanceInstruments"                  
     },
     "3bac793e-bc73-44f4-a18f-8c1a55efe919": {
       "data": {
@@ -80,7 +80,7 @@
         "id": "id",
         "label": ["accountNo"]
       },
-      "apiName": "/api/Accounts"
+      "apiName": "/api/Accounts/ViewAccounts"
     },
     "3fcf4341-240d-4f5d-af00-0a5f5c9e6b82": {
       "data": {

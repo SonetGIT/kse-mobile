@@ -2,11 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import { IoMdArrowDropright} from 'react-icons/io';
 import { IoMdArrowDropleft } from 'react-icons/io';
-import {FaHandshake} from 'react-icons/fa';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
-import Select from 'react-select';
 import Snackbar from '@material-ui/core/Snackbar';
+import {GoBriefcase} from 'react-icons/go';
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
@@ -28,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ActiveBids(props) {
+export default function Briefcase(props) {
   const cls = useStyles();
   const [kseRESTApi] = useState(props.kseRESTApi)
   console.log("API:", kseRESTApi)
   const [docList, setDocList] = useState(null)
+  const [enumData, setEnumData] = useState({})
   const [enumOptions, setEnumOptions] = useState({})
   const [selectedOptions, setSelectedOptions] = useState({})
   const [currIndex, setCurrIndex] = useState(0)
@@ -47,45 +47,32 @@ export default function ActiveBids(props) {
   useEffect(async ()=>{
     let docL = await getActiveBids()
     setDocList(docL)
-    createEnumOptions(docL)
-    console.log("DOCL INSTR", docL)    
+    let enumDataToCollect = [
+      {enumName: 'organizationId', enumDef:'5b78d9dd-821d-4c6a-a00a-3af85224fbc4'},
+      {enumName: 'financeInstrument', enumDef: '3e819d7e-25d0-4a04-a3ff-092fd348a375'},
+    ]
+    let enums = await props.getEnumDataByList(enumDataToCollect)
+    setEnumData(enums)
+    let eOpts = await props.createEnumOptions(enums)
+    setEnumOptions(eOpts)    
+    console.log("Enums", enums) 
+    console.log('DOCL', docL)   
   },[])
   
-  function handleSelectChange(option){
-    setSelectedOptions({...selectedOptions, [option.name]: option})
-    setFieldValue({...fieldValue, [option.name]: option.value})
-    setCurrIndex(option.index)
-    console.log("OPT", {[option.name]: option.value})
-    // console.log("OPT", option, fieldValue)
+  function getEnumLabel(name, id){
+    for(let d=0; d<enumData[name].length; d++){
+      if(enumData[name][d].id === id){
+        return enumData[name][d].label
+      }
+    }
   }
+
   function handleCloseSnackBar(){
     setShowSnackBar(false)
-  }
-
-  async function createEnumOptions(enums){   
-    let newEnumOptions = {}
-    let options = [{
-      "value": null,
-      "label": "Пусто",
-      "name" : "instrumentCode",
-      "index": null
-    }]
-    for(let i=0; i<enums.length; i++){
-      options.push({
-        "value": enums[i].id,
-        "label": enums[i].instrumentCode,
-        "name": "instrumentCode",
-        "index": i
-      })
-    }
-    newEnumOptions["instrumentCode"] = options
-    console.log("ENUMS", newEnumOptions)
-    setEnumOptions(newEnumOptions)
-    // return newEnumOptions
-  }
+  } 
 
   async function getActiveBids(){
-    let docList = await fetch(kseRESTApi + "/api/Trading/GetDeals", 
+    let docList = await fetch(kseRESTApi + "/api/Accounts/ViewInstruments", 
       {
         "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
       }
@@ -95,7 +82,7 @@ export default function ActiveBids(props) {
       return res.data
     })
     .catch(function (error) {
-      console.log("Collecting docList GetDeals error: ", error)
+      console.log("Collecting docList GetViewInstruments error: ", error)
       return []
     })
     return docList
@@ -124,43 +111,34 @@ export default function ActiveBids(props) {
   }
 
   /*ОТРИСОВКА*****************************************************************************************************************************************/
-  return (    
-    <div>      
-      <Grid>
-        <Select 
-          placeholder= {'Поиск по коду'}
-          name = {'instrumentCode'}
-          value = {selectedOptions['instrumentCode']}
-          onChange = {handleSelectChange}
-          options = {enumOptions['instrumentCode']}
-        />
-      </Grid>
-      {docList !== null &&
-        <Grid>        
+  return (
+    <div>
+      {docList !== null && Object.keys(enumData).length > 0 &&
+        <Grid>
           <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse:'collapse'}}>
             <tr style={{backgroundColor:'#ffd2c4'}}>
-              <td style={{ paddingLeft:7, width:24}}><FaHandshake size={16} style={{color:'#dd2c00', marginTop:3}}/></td>              
-              <td>Сделки</td>
+              <td style={{ paddingLeft:7, width:24}}><GoBriefcase size={15} style={{color:'#dd2c00', marginTop:2}}/></td>              
+              <td>Позиции по инструментам</td>              
             </tr>
           </table>           
-          <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
-            <tr>
-              <td className={cls.td}> Код </td>
-              <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       
-            </tr>
-            <tr>
-              <td className={cls.td}> B/S </td>
-              <td className={cls.td1}>{docList[currIndex].bidDirection}</td>
-            </tr>
-            <tr>
-              <td className={cls.td}> Сумма </td>
-              <td className={cls.td1}>{docList[currIndex].sum}</td>
-            </tr>
-            <tr>
-              <td className={cls.td}> Количество </td>
-              <td className={cls.td1}>{docList[currIndex].quantity}</td>
-            </tr>
-          </table>
+            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+              <tr>
+                <td className={cls.td}> Организация </td>
+                <td className={cls.td1}>{getEnumLabel('organizationId', docList[currIndex].organizationId)}</td>       
+              </tr>
+              <tr>
+                <td className={cls.td}> Фин. инс-т </td>
+                <td className={cls.td1}>{getEnumLabel('financeInstrument', docList[currIndex].financeInstrumentId)}</td>
+              </tr>
+              <tr>
+                <td className={cls.td}> Счет </td>
+                <td className={cls.td1}>{docList[currIndex].accountNo}</td>
+              </tr>
+              <tr>
+                <td className={cls.td}> Количество </td>
+                <td className={cls.td1}>{docList[currIndex].quantity}</td>
+              </tr>
+            </table>
           <Grid 
           container
           direction='row'
@@ -170,7 +148,7 @@ export default function ActiveBids(props) {
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>LeftClick(currIndex)}>
               <IoMdArrowDropleft/>
             </IconButton>
-              <tr style={{fontSize:10, clolor:'#757575', clolor:'#757575', maxWidth:50, borderColor:'white', textAlign:'center'}}>{currIndex +1} / {docList.length} </tr>
+              <tr style={{fontSize:10, clolor:'#757575', maxWidth:50, textAlign:'center'}}>{currIndex +1} / {docList.length} </tr>
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>RightClick(currIndex)}>
               <IoMdArrowDropright/>
             </IconButton>
@@ -188,7 +166,7 @@ export default function ActiveBids(props) {
           horizontal: 'center'
           }}
         >
-      </Snackbar>      
+      </Snackbar>
     </div>
   );
 }

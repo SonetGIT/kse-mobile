@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   timeText: {
-    fontFamily:'Serif',
+    fontFamily:'Roboto',
     fontSize:14,
-    paddingRight:20,    
-    color:'#1266F1'
+    maxWidth:130,  
+    color:'white'
     }
   }));
 
