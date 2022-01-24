@@ -7,17 +7,13 @@ import ActiveBids from './ActiveBids.jsx';
 import Deals from './Deals.jsx';
 import Briefcase from './Briefcase.jsx';
 import MoneyPositions from './MoneyPositions.jsx';
-import OrderBuy from './OrderBuy.jsx';
-import OrderSell from './OrderSell.jsx';
 import ConfigurationFile from '../configuration/ConfigurationFile.json';
 import { ToastContainer, toast } from 'react-toastify';
 
 export default function Home(props) {
   const [kseRESTApi] = useState(props.kseRESTApi)
   const [token, setToken] = useState(props.token);
-  const [userProfile, setUserProfile] = useState(props.userProfile);
-  const [showOrderBuy, setShowOrderBuy] = useState(false)
-  const [showOrderSell, setShowOrderSell] = useState(false)
+  const [userProfile, setUserProfile] = useState(props.userProfile);  
   
   //Выход из ситемы
   function exitSystemClick(){
@@ -169,6 +165,7 @@ export default function Home(props) {
         getEnumDataByList={getEnumDataByList}
         createEnumOptions={createEnumOptions}
       />
+      
       <MoneyPositions
         kseRESTApi={kseRESTApi}
         token={token}
@@ -189,33 +186,7 @@ export default function Home(props) {
       <Deals 
         kseRESTApi={kseRESTApi} 
         token={token}
-      />
-      {showOrderBuy === true &&
-        <OrderBuy
-          // VARS
-          kseRESTApi={props.kseRESTApi}
-          token={props.token}
-          userProfile={props.userProfile}
-          // FUNCTIONS
-          setShowOrderBuy={setShowOrderBuy}
-          getEnumDataByList={getEnumDataByList}
-          createEnumOptions={createEnumOptions}
-          callSuccessToast={callSuccessToast}
-          callErrorToast={callErrorToast}
-        />
-      }
-      {showOrderSell === true &&
-        <OrderSell
-          kseRESTApi={props.kseRESTApi}
-          token={props.token}
-          userProfile={props.userProfile}
-          setShowOrderSell={setShowOrderSell}
-          getEnumDataByList={getEnumDataByList}
-          createEnumOptions={createEnumOptions}
-          callSuccessToast={callSuccessToast}
-          callErrorToast={callErrorToast}
-        />
-      }
+      />      
       {/* Вызов toast */}
       <ToastContainer/>
     </div>

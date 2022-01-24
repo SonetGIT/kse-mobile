@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import {GoBriefcase} from 'react-icons/go';
+
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
@@ -117,7 +118,7 @@ export default function Briefcase(props) {
         <Grid>
           <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse:'collapse'}}>
             <tr style={{backgroundColor:'#ffd2c4'}}>
-              <td style={{ paddingLeft:7, width:24}}><GoBriefcase size={15} style={{color:'#dd2c00', marginTop:2}}/></td>              
+              <td style={{paddingLeft:7, width:24}}><GoBriefcase size={15} style={{color:'#dd2c00', marginTop:2}}/></td>              
               <td>Позиции по инструментам</td>              
             </tr>
           </table>           

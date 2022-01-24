@@ -5,10 +5,19 @@ import { IoMdArrowDropleft } from 'react-icons/io';
 import {ImStackoverflow} from 'react-icons/im';
 import {MdDeleteSweep} from 'react-icons/md';
 import {FaEllipsisV} from 'react-icons/fa';
+import {GiBuyCard} from 'react-icons/gi';
+import {GiSellCard} from 'react-icons/gi';
+import Menu from '@mui/material/Menu';
+import Typography from '@mui/material/Typography';
+import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import Select from 'react-select';
+import OrderBuy from './OrderBuy.jsx';
+import OrderSell from './OrderSell.jsx';
 import Snackbar from '@material-ui/core/Snackbar';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import { v4 as uuidv4 } from 'uuid';
@@ -38,6 +47,10 @@ export default function ActiveBids(props) {
   const cls = useStyles();
   const [kseRESTApi] = useState(props.kseRESTApi)
   const [token] = useState(props.token)
+  const [getEnumDataByList] = useState(props.getEnumDataByList)
+  // const [createEnumOptions]=useState(props.createEnumOptions)
+  const [callSuccessToast]=useState(props.callSuccessToast)
+  const [callErrorToast]=useState(props.callErrorToast)
   console.log("API:", kseRESTApi)
   const [docList, setDocList] = useState(null)
   const [enumOptions, setEnumOptions] = useState({})
@@ -48,6 +61,8 @@ export default function ActiveBids(props) {
   const [selectedBid, setSelectedBid] = useState({bidId: null})
   const [activeBidsKey, setActiveBidsKey] = useState(null)
   const [showOpenEllipsis, setShowOpenEllipsis] = useState(false)
+  const [showOrderBuy, setShowOrderBuy] = useState(false)
+  const [showOrderSell, setShowOrderSell] = useState(false)
 
   // FIELDS
   const [fieldValue, setFieldValue] = useState({
@@ -194,7 +209,6 @@ export default function ActiveBids(props) {
                   onClick={()=> setShowOpenEllipsis(!showOpenEllipsis)}
                   style={{color:'#dd2c00', fontWeight:'bold', paddingTop:2}}
                 />
-                                
               </td>
             </tr>
           </table>
@@ -235,14 +249,58 @@ export default function ActiveBids(props) {
         </Grid>
       }
       {showOpenEllipsis === true &&
-        <MenuItem>
-        Подать заявку
-        </MenuItem>
-      //   <MdDeleteSweep 
-      //     size='18' 
-      //     style={{color:'#1266F1', fontWeight:'bold'}}
-      //     onClick={()=> cancelBid()}
-      // />
+        <MenuList align='right'>
+          <MenuItem align='right' onClick ={()=> setShowOrderBuy(!showOrderBuy)} style={{fontSize:12, fontFamily:'Roboto'}}>
+            <GiBuyCard 
+              size='14'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> setShowOrderBuy(!showOrderBuy)}
+            />
+            Купить
+          </MenuItem>
+          <MenuItem onClick ={()=> setShowOrderSell(!showOrderSell)} style={{fontSize:12, fontFamily:'Roboto'}}>
+            <GiSellCard
+              size='14'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> setShowOrderSell(!showOrderSell)}
+            />
+            Продать
+          </MenuItem>
+          <MenuItem onClick={()=> cancelBid()} style={{fontSize:12, fontFamily:'Roboto'}}>
+            <MdDeleteSweep 
+              size='14'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick={()=> cancelBid()}
+            />
+            Отменить
+          </MenuItem>
+        </MenuList>
+      }
+      {showOrderBuy === true &&
+        <OrderBuy
+          // VARS
+          kseRESTApi={props.kseRESTApi}
+          token={props.token}
+          userProfile={props.userProfile}
+          // FUNCTIONS
+          setShowOrderBuy={setShowOrderBuy}
+          getEnumDataByList={props.getEnumDataByList}
+          createEnumOptions={props.createEnumOptions}
+          callSuccessToast={props.callSuccessToast}
+          callErrorToast={props.callErrorToast}
+        />
+      }
+      {showOrderSell === true &&
+        <OrderSell
+          kseRESTApi={props.kseRESTApi}
+          token={props.token}
+          userProfile={props.userProfile}
+          setShowOrderSell={setShowOrderSell}
+          getEnumDataByList={props.getEnumDataByList}
+          createEnumOptions={props.createEnumOptions}
+          callSuccessToast={props.callSuccessToast}
+          callErrorToast={props.callErrorToast}
+        />
       }
       <Snackbar
         style={{textAlign:'center', color:'red'}}
