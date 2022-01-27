@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Select from 'react-select';
+import Select from 'react-select'; // https://react-select.com/home
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';

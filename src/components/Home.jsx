@@ -1,19 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import { IoArrowRedoCircleOutline } from 'react-icons/io5';
-import { Grid } from '@material-ui/core';
+import { Grid, Toolbar } from '@material-ui/core';
+import { ToastContainer, toast } from 'react-toastify';
+import AppBar from "@material-ui/core/AppBar";
+import Card from '@mui/material/Card';
 import OnlineTime from "./OnlineTime"; //Онлайн время
 import FinInstruments from './FinInstruments.jsx';
 import ActiveBids from './ActiveBids.jsx';
 import Deals from './Deals.jsx';
 import Briefcase from './Briefcase.jsx';
 import MoneyPositions from './MoneyPositions.jsx';
+import BottomNavigation from './BottomNavigation.jsx';
 import ConfigurationFile from '../configuration/ConfigurationFile.json';
-import { ToastContainer, toast } from 'react-toastify';
 
 export default function Home(props) {
   const [kseRESTApi] = useState(props.kseRESTApi)
   const [token, setToken] = useState(props.token);
   const [userProfile, setUserProfile] = useState(props.userProfile);  
+  const [authenticated, setAuthenticated] = useState(props.authenticated);
   
   //Выход из ситемы
   function exitSystemClick(){
@@ -137,35 +141,23 @@ export default function Home(props) {
   /*ОТРИСОВКА*****************************************************************************************************************************************/
   return (
     <div style={{width:'100%', height:'100vh'}}>
-      <Grid 
-        container
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="center"
-        style={{backgroundColor:'#ff7043'}}
-       >
-        {/* z */}
-        <Grid item xs={4}>
-        </Grid>
-        <Grid item xs={5}>
+      <AppBar style={{width:'100%', height:45, backgroundColor:'#ff7043'}}>
+        <Grid 
+          container
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="center"
+          style={{backgroundColor:'#ff7043'}}        
+          >          
           <OnlineTime/>
         </Grid>
-        <Grid 
-          item xs={1}>
-          <IoArrowRedoCircleOutline
-            style={{paddingTop:4, marginRight:4, color:'white'}}
-            size='22px'
-            onClick={()=>exitSystemClick()}
-          />
-        </Grid>          
-      </Grid>      
+      </AppBar>
       <Briefcase
         kseRESTApi={kseRESTApi}
         token={token}
         getEnumDataByList={getEnumDataByList}
         createEnumOptions={createEnumOptions}
-      />
-      
+      />      
       <MoneyPositions
         kseRESTApi={kseRESTApi}
         token={token}
@@ -176,6 +168,10 @@ export default function Home(props) {
         kseRESTApi={kseRESTApi} 
         token={token}
         userProfile={userProfile}
+        getEnumDataByList={getEnumDataByList}
+        createEnumOptions={createEnumOptions}
+        callSuccessToast={callSuccessToast}
+        callErrorToast={callErrorToast}
       />
       <ActiveBids 
         kseRESTApi={kseRESTApi} 
@@ -186,9 +182,17 @@ export default function Home(props) {
       <Deals 
         kseRESTApi={kseRESTApi} 
         token={token}
-      />      
+      />
+      <BottomNavigation
+        kseRESTApi={kseRESTApi}
+        token={token}
+        authenticated={setAuthenticated}
+        userProfile={setUserProfile}
+      >
+      </BottomNavigation>   
       {/* Вызов toast */}
-      <ToastContainer/>
+      <ToastContainer/>      
     </div>
+    
   );
 }

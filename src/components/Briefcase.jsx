@@ -10,8 +10,8 @@ import {GoBriefcase} from 'react-icons/go';
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
-    borderBottom:'solid 1px #ffd2c4',
-    borderRight:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
+    borderRight:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:12,
     color:'#263238',
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight:8
   },
   td1:{    
-    borderBottom:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:11,
     color:'#757575',
@@ -116,12 +116,13 @@ export default function Briefcase(props) {
     <div>
       {docList !== null && Object.keys(enumData).length > 0 &&
         <Grid>
-          <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse:'collapse'}}>
-            <tr style={{backgroundColor:'#ffd2c4'}}>
+          <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse:'collapse', marginTop:47}}>
+            <tr style={{backgroundColor:'#ffd6c9'}}>
               <td style={{paddingLeft:7, width:24}}><GoBriefcase size={15} style={{color:'#dd2c00', marginTop:2}}/></td>              
               <td>Позиции по инструментам</td>              
             </tr>
-          </table>           
+          </table>
+          {docList.length !== 0 &&
             <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
               <tr>
                 <td className={cls.td}> Организация </td>
@@ -140,6 +141,7 @@ export default function Briefcase(props) {
                 <td className={cls.td1}>{docList[currIndex].quantity}</td>
               </tr>
             </table>
+          }
           <Grid 
           container
           direction='row'

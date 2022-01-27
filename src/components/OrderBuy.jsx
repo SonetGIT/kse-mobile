@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Select from 'react-select';
+import Select from 'react-select'; // https://react-select.com/home
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
@@ -14,18 +14,13 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 import Checkbox from '@material-ui/core/Checkbox';
 // Icons
-import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveIcon from '@mui/icons-material/RemoveCircleOutline';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import 'react-toastify/dist/ReactToastify.css';
 // CUSTOM COMPONENTS
-import ConfigurationFile from "../configuration/ConfigurationFile.json";
 // Library
 import { v4 as uuidv4 } from 'uuid';
-import { red } from "@material-ui/core/colors";
-import { padding } from "@mui/system";
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import '../styles/generalStyles.css';
 
@@ -45,8 +40,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 function getModalStyle() {
-  const top = 22;
-  const left = 26;
+  const top = 13;
+  const left = 18;
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -426,7 +421,7 @@ export default (props) => {
               <td>Время снятия</td>
               <td style={{fontSize: "10px"}}> 
               <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
-                <DateTimePicker                  
+                <DateTimePicker
                   value={fieldValue.expiredAt}
                   name="expiredAt"
                   onChange={(newValue) => handleDateTimeChange(newValue, "expiredAt")}

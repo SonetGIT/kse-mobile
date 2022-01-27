@@ -5,17 +5,24 @@ import { IoMdArrowDropleft } from 'react-icons/io';
 import { AiOutlineAreaChart } from 'react-icons/ai';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
-import Select from 'react-select';
+import Select from 'react-select'; // https://react-select.com/home
 import Snackbar from '@material-ui/core/Snackbar';
 import Charts from './Charts.jsx';
 import {AiFillGold} from 'react-icons/ai';
 import {SiPandas} from 'react-icons/si';
+import OrderBuy from './OrderBuy.jsx';
+import OrderSell from './OrderSell.jsx';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import {GiBuyCard} from 'react-icons/gi';
+import {GiSellCard} from 'react-icons/gi';
+import {FaEllipsisV} from 'react-icons/fa';
 
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
-    borderBottom:'solid 1px #ffd2c4',
-    borderRight:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
+    borderRight:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:12,
     color:'#263238',
@@ -23,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight:8
   },
   td1:{    
-    borderBottom:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:11,
     color:'#757575',
@@ -47,6 +54,11 @@ export default function FinInstruments(props) {
   const [quotationKey, setQuotationKey] = useState(null)  
   const [charts, setCharts] = useState(false)
   const [showCharts, setShowCharts] = useState(false)
+  const [showOpenEllipsis, setShowOpenEllipsis] = useState(false)
+  const [showOrderBuy, setShowOrderBuy] = useState(false)
+  const [showOrderSell, setShowOrderSell] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const openMenu = Boolean(anchorEl)
 
   // FIELDS
   const [fieldValue, setFieldValue] = useState({
@@ -62,6 +74,13 @@ export default function FinInstruments(props) {
     console.log('CODE', docL[currIndex].code)
   },[])
 
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
+  async function handleOpenMenu(event){
+    setAnchorEl(event.currentTarget)
+    // console.log("DBL BID", event.currentTarget)
+  }
   function handleSelectChange(option){
     setSelectedOptions({...selectedOptions, [option.name]: option})
     setFieldValue({...fieldValue, [option.name]: option.value})
@@ -130,6 +149,21 @@ export default function FinInstruments(props) {
     console.log("QUOT", quotationList)
     return quotationList
   }
+  //Открыть форму заявки на ПОКУПКУ
+  function showOrderBuyForm(){
+    handleCloseMenu()
+    setShowOrderBuy(!showOrderBuy)
+  }
+  //Открыть форму заявки на ПРОДАЖУ
+  function showOrderSellForm(){
+    handleCloseMenu()
+    setShowOrderSell(!showOrderSell)
+  }  
+  //Открыть форму ДИАГРАММЫ
+  function showChartsForm(){
+    handleCloseMenu()
+    setShowCharts(!showCharts)
+  }  
  
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
   async function LeftClick(currIndex){
@@ -174,36 +208,35 @@ export default function FinInstruments(props) {
       {docList !== null &&
         <Grid>        
           <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse: "collapse"}}>          
-            <tr style={{backgroundColor:'#ffd2c4'}}>
+            <tr style={{backgroundColor:'#ffd6c9'}}>
               <td style={{ paddingLeft:5, width:21}}><AiFillGold size={15} style={{color:'#dd2c00', marginTop:2}}/></td>
               <td>Инструменты</td>
-              <td align='right' style={{backgroundColor:'#ffd2c4'}}>
-                <AiOutlineAreaChart 
-                  size='18'
-                  style={{color:'#1266F1', fontWeight:'bold'}}
-                  onClick ={()=> setShowCharts(!showCharts)}
+              <td align='right' style={{backgroundColor:'#ffd6c9'}}>
+                <FaEllipsisV 
+                  id='menuBids'
+                  size={13}
+                  onClick={ handleOpenMenu}
+                  style={{color:'#dd2c00', fontWeight:'bold', paddingTop:2}}
                 />
               </td>
             </tr>            
-          </table>           
-          <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
-            <tr>
-              <td className={cls.td}> Код </td>
-              <td className={cls.td1}>{docList[currIndex].code}</td>       
-            </tr>
-            <tr>
-              <td className={cls.td}> Эмитент </td>
-              <td className={cls.td1}>{docList[currIndex].emitentName}</td>
-            </tr>
-            <tr>
-              <td className={cls.td}> Coст. </td>
-              <td className={cls.td1}>{docList[currIndex].tradeStatusId}</td>
-            </tr>
-            {/* <tr>
-              <td className={cls.td}> Предложение </td>
-              <td className={cls.td1}>{docList[currIndex].offer}</td>
-            </tr> */}
           </table>
+          {docList.length !== 0 &&
+            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+              <tr>
+                <td className={cls.td}> Код </td>
+                <td className={cls.td1}>{docList[currIndex].code}</td>       
+              </tr>
+              <tr>
+                <td className={cls.td}> Эмитент </td>
+                <td className={cls.td1}>{docList[currIndex].emitentName}</td>
+              </tr>
+              <tr>
+                <td className={cls.td}> Coст. </td>
+                <td className={cls.td1}>{docList[currIndex].tradeStatusId}</td>
+              </tr>
+            </table>
+          }
           <Grid 
           container
           direction='row'
@@ -219,11 +252,11 @@ export default function FinInstruments(props) {
             </IconButton>
           </Grid>        
         </Grid>
-      }
+      }      
       {quotation !== null &&
       <Grid>        
         <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse:'collapse'}} key={quotationKey}>
-          <tr style={{backgroundColor:'#ffd2c4'}}>
+          <tr style={{backgroundColor:'#ffd6c9'}}>
             <td style={{ paddingLeft:5, width:21}}><SiPandas size={14} style={{color:'#dd2c00', marginTop:2}}/></td>              
             <td>Котировка</td>              
           </tr>         
@@ -243,26 +276,92 @@ export default function FinInstruments(props) {
         </tbody>
       </Grid>
       }
-      {showCharts === true &&
-        <Charts
-          kseRESTApi={props.kseRESTApi}
-          token={props.token}
-          userProfile={props.userProfile}
-          code={docList[currIndex].code}
-          setShowCharts={setShowCharts}
-        />
-      }
-      <Snackbar
-        style={{textAlign:'center', color:'red'}}
-        open={showSnackBar}
-        onClose={()=> handleCloseSnackBar()}
-        autoHideDuration={1200}
-        message={snackBarMessage}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center'
-        }}
-      >
+      <Menu
+          id="menu-bids"
+          anchorEl={anchorEl}
+          open={openMenu}
+          onClose={handleCloseMenu}
+          MenuListProps={{
+            'aria-labelledby': "menuBids",
+          }}
+        >
+          <MenuItem 
+            onClick ={()=> showOrderBuyForm()} 
+            style={{fontSize:12, fontFamily:'Roboto'}}>
+            <GiBuyCard 
+              size='14'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> showOrderBuyForm()}
+            />
+            Купить
+          </MenuItem>
+          <MenuItem 
+            onClick ={()=> showOrderSellForm()} 
+            style={{fontSize:12, fontFamily:'Roboto'}}>
+            <GiSellCard
+              size='14'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> showOrderSellForm()}
+            />
+            Продать
+          </MenuItem>
+          <MenuItem 
+            onClick ={()=> showChartsForm()}
+            style={{fontSize:12, fontFamily:'Roboto'}}>
+            <AiOutlineAreaChart 
+              size='18'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> showChartsForm()}
+            />
+            Диаграмма
+          </MenuItem>
+        </Menu>
+        {showOrderBuy === true &&
+          <OrderBuy        
+            // VARS
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            // FUNCTIONS
+            setShowOrderBuy={setShowOrderBuy}
+            getEnumDataByList={props.getEnumDataByList}
+            createEnumOptions={props.createEnumOptions}
+            callSuccessToast={props.callSuccessToast}
+            callErrorToast={props.callErrorToast}
+          />
+        }
+        {showOrderSell === true &&        
+          <OrderSell
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            setShowOrderSell={setShowOrderSell}
+            getEnumDataByList={props.getEnumDataByList}
+            createEnumOptions={props.createEnumOptions}
+            callSuccessToast={props.callSuccessToast}
+            callErrorToast={props.callErrorToast}
+          />
+        }
+        {showCharts === true &&
+          <Charts
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            code={docList[currIndex].code}
+            setShowCharts={setShowCharts}            
+          />
+        }
+        <Snackbar
+          style={{textAlign:'center', color:'red'}}
+          open={showSnackBar}
+          onClose={()=> handleCloseSnackBar()}
+          autoHideDuration={1200}
+          message={snackBarMessage}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'center'
+          }}
+        >
       </Snackbar>      
     </div>
   );

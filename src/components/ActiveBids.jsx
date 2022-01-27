@@ -5,19 +5,11 @@ import { IoMdArrowDropleft } from 'react-icons/io';
 import {ImStackoverflow} from 'react-icons/im';
 import {MdDeleteSweep} from 'react-icons/md';
 import {FaEllipsisV} from 'react-icons/fa';
-import {GiBuyCard} from 'react-icons/gi';
-import {GiSellCard} from 'react-icons/gi';
 import Menu from '@mui/material/Menu';
-import Typography from '@mui/material/Typography';
-import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
-import Select from 'react-select';
-import OrderBuy from './OrderBuy.jsx';
-import OrderSell from './OrderSell.jsx';
+import Select from 'react-select'; // https://react-select.com/home
 import Snackbar from '@material-ui/core/Snackbar';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import { v4 as uuidv4 } from 'uuid';
@@ -25,8 +17,8 @@ import { v4 as uuidv4 } from 'uuid';
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   td:{    
-    borderBottom:'solid 1px #ffd2c4',
-    borderRight:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
+    borderRight:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:12,
     color:'#263238',
@@ -34,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight:8
   },
   td1:{    
-    borderBottom:'solid 1px #ffd2c4',
+    borderBottom:'solid 1px #ffd6c9',
     fontFamily:'Roboto',
     fontSize:11,
     color:'#757575',
@@ -47,10 +39,6 @@ export default function ActiveBids(props) {
   const cls = useStyles();
   const [kseRESTApi] = useState(props.kseRESTApi)
   const [token] = useState(props.token)
-  const [getEnumDataByList] = useState(props.getEnumDataByList)
-  // const [createEnumOptions]=useState(props.createEnumOptions)
-  const [callSuccessToast]=useState(props.callSuccessToast)
-  const [callErrorToast]=useState(props.callErrorToast)
   console.log("API:", kseRESTApi)
   const [docList, setDocList] = useState(null)
   const [enumOptions, setEnumOptions] = useState({})
@@ -58,11 +46,9 @@ export default function ActiveBids(props) {
   const [currIndex, setCurrIndex] = useState(0)
   const [showSnackBar, setShowSnackBar] = useState(false)
   const [snackBarMessage, setSnackBarMessage] = useState("")
-  const [selectedBid, setSelectedBid] = useState({bidId: null})
-  const [activeBidsKey, setActiveBidsKey] = useState(null)
-  const [showOpenEllipsis, setShowOpenEllipsis] = useState(false)
-  const [showOrderBuy, setShowOrderBuy] = useState(false)
-  const [showOrderSell, setShowOrderSell] = useState(false)
+  const [activeBidsKey, setActiveBidsKey] = useState(null)  
+  const [anchorEl, setAnchorEl] = useState(null)
+  const openMenu = Boolean(anchorEl)
 
   // FIELDS
   const [fieldValue, setFieldValue] = useState({
@@ -77,6 +63,13 @@ export default function ActiveBids(props) {
     // console.log("DOCL BIDS", docL)    
   },[])
   
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
+  async function handleOpenMenu(event){
+    setAnchorEl(event.currentTarget)
+    // console.log("DBL BID", event.currentTarget)
+  }
   function handleSelectChange(option){
     setSelectedOptions({...selectedOptions, [option.name]: option})
     setFieldValue({...fieldValue, [option.name]: option.value})
@@ -91,28 +84,6 @@ export default function ActiveBids(props) {
   function getUUID(){
     return uuidv4()
   }
-  async function createEnumOptions(enums){   
-    let newEnumOptions = {}
-    let options = [{
-      "value": null,
-      "label": "Пусто",
-      "name" : "instrumentCode",
-      "index": null
-    }]
-    for(let i=0; i<enums.length; i++){
-      options.push({
-        "value": enums[i].id,
-        "label": enums[i].instrumentCode,
-        "name": "instrumentCode",
-        "index": i
-      })
-    }
-    newEnumOptions["instrumentCode"] = options
-    console.log("ENUMS", newEnumOptions)
-    setEnumOptions(newEnumOptions)
-    // return newEnumOptions
-  }
-
   async function getActiveBids(){
     await fetch(kseRESTApi + "/api/Trading/GetActiveBids", 
       {
@@ -132,8 +103,9 @@ export default function ActiveBids(props) {
     })
     return docList
   }
-
+  //Отмена заявки
   function cancelBid(){
+    handleCloseMenu() //Закрывает Контекстное меню
     swal({
       text: "Вы точно хотите снять заявку?",
       icon: "warning",
@@ -151,7 +123,6 @@ export default function ActiveBids(props) {
             console.log("Cancel bid", res)
             if(res.isSuccess === true){
               props.callSuccessToast("Заявка снята!")
-              //handleCloseMenu()
               getActiveBids()
             }
             else{
@@ -200,13 +171,14 @@ export default function ActiveBids(props) {
       {docList !== null &&
         <Grid>        
           <table style={{width:'100%', color:'#424242', fontWeight:'bold', fontFamily:'Roboto', fontSize:12, borderCollapse: "collapse"}}>
-            <tr style={{backgroundColor:'#ffd2c4'}}>
+            <tr style={{backgroundColor:'#ffd6c9'}}>
               <td style={{ paddingLeft:7, width:24}}><ImStackoverflow size={13} style={{color:'#dd2c00', marginTop:2}}/></td>              
               <td>Заявки</td>          
-              <td align='right' style={{backgroundColor:'#ffd2c4'}}>
+              <td align='right' style={{backgroundColor:'#ffd6c9'}}>
                 <FaEllipsisV 
+                  id='menuBids'
                   size={13}
-                  onClick={()=> setShowOpenEllipsis(!showOpenEllipsis)}
+                  onClick={handleOpenMenu}
                   style={{color:'#dd2c00', fontWeight:'bold', paddingTop:2}}
                 />
               </td>
@@ -214,6 +186,22 @@ export default function ActiveBids(props) {
           </table>
           {docList.length !== 0 &&
             <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+              <tr>
+                <td className={cls.td}> Код </td>
+                <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       
+              </tr>
+              <tr>
+                <td className={cls.td}> B/S </td>
+                <td className={cls.td1}>{docList[currIndex].direction}</td>
+              </tr>
+              <tr>
+                <td className={cls.td}> Цена </td>
+                <td className={cls.td1}>{docList[currIndex].price}</td>
+              </tr>
+              <tr>
+                <td className={cls.td}> Количество </td>
+                <td className={cls.td1}>{docList[currIndex].amount}</td>
+              </tr>
               <tr>
                 <td className={cls.td}> Код </td>
                 <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       
@@ -245,63 +233,30 @@ export default function ActiveBids(props) {
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>RightClick(currIndex)}>
               <IoMdArrowDropright/>
             </IconButton>
-          </Grid>        
+          </Grid>
         </Grid>
       }
-      {showOpenEllipsis === true &&
-        <MenuList align='right'>
-          <MenuItem align='right' onClick ={()=> setShowOrderBuy(!showOrderBuy)} style={{fontSize:12, fontFamily:'Roboto'}}>
-            <GiBuyCard 
-              size='14'
-              style={{color:'#dd2c00', marginRight:4}}
-              onClick ={()=> setShowOrderBuy(!showOrderBuy)}
-            />
-            Купить
-          </MenuItem>
-          <MenuItem onClick ={()=> setShowOrderSell(!showOrderSell)} style={{fontSize:12, fontFamily:'Roboto'}}>
-            <GiSellCard
-              size='14'
-              style={{color:'#dd2c00', marginRight:4}}
-              onClick ={()=> setShowOrderSell(!showOrderSell)}
-            />
-            Продать
-          </MenuItem>
-          <MenuItem onClick={()=> cancelBid()} style={{fontSize:12, fontFamily:'Roboto'}}>
-            <MdDeleteSweep 
-              size='14'
-              style={{color:'#dd2c00', marginRight:4}}
-              onClick={()=> cancelBid()}
-            />
-            Отменить
-          </MenuItem>
-        </MenuList>
-      }
-      {showOrderBuy === true &&
-        <OrderBuy
-          // VARS
-          kseRESTApi={props.kseRESTApi}
-          token={props.token}
-          userProfile={props.userProfile}
-          // FUNCTIONS
-          setShowOrderBuy={setShowOrderBuy}
-          getEnumDataByList={props.getEnumDataByList}
-          createEnumOptions={props.createEnumOptions}
-          callSuccessToast={props.callSuccessToast}
-          callErrorToast={props.callErrorToast}
-        />
-      }
-      {showOrderSell === true &&
-        <OrderSell
-          kseRESTApi={props.kseRESTApi}
-          token={props.token}
-          userProfile={props.userProfile}
-          setShowOrderSell={setShowOrderSell}
-          getEnumDataByList={props.getEnumDataByList}
-          createEnumOptions={props.createEnumOptions}
-          callSuccessToast={props.callSuccessToast}
-          callErrorToast={props.callErrorToast}
-        />
-      }
+        <Menu
+          id="menu-bids"
+          anchorEl={anchorEl}
+          open={openMenu}
+          onClose={handleCloseMenu}
+          MenuListProps={{
+            'aria-labelledby': "menuBids",
+          }}
+        >
+        <MenuItem
+          onClick={()=> cancelBid()} 
+          style={{fontSize:12, fontFamily:'Roboto'}}
+          >
+          <MdDeleteSweep 
+            size='14'
+            style={{color:'#dd2c00', marginRight:4}}
+            onClick={()=> cancelBid()}
+          />
+          Отменить заявку
+        </MenuItem>
+      </Menu>
       <Snackbar
         style={{textAlign:'center', color:'red'}}
         open={showSnackBar}

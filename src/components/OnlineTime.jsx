@@ -6,7 +6,8 @@ const useStyles = makeStyles((theme) => ({
     fontFamily:'Roboto',
     fontSize:14,
     maxWidth:130,  
-    color:'white'
+    color:'white',
+    paddingRight:10
     }
   }));
 
