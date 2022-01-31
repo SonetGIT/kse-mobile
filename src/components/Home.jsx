@@ -18,12 +18,30 @@ export default function Home(props) {
   const [token, setToken] = useState(props.token);
   const [userProfile, setUserProfile] = useState(props.userProfile);  
   const [authenticated, setAuthenticated] = useState(props.authenticated);
+  const [showMails, setShowMails] = useState(false)
   
   //Выход из ситемы
   function exitSystemClick(){
     localStorage.removeItem("token")
     props.setAuthenticated(false)
     props.setUserProfile({})
+  }
+  async function fetchDocList(docListApi){
+    // console.log("API", kseRESTApi + docListApi)
+    let docList = await fetch(kseRESTApi + docListApi, 
+      {
+        "headers": { "content-type": "application/json", "Authorization": "Bearer " + token }
+      }
+    )
+    .then(response => response.json())
+    .then(function(res){
+      return res.data
+    })
+    .catch(function (error) {
+      console.log("Collecting docList error: ", error)
+      return []
+    })
+    return docList
   }
   // Collect enumData using list
   async function getEnumDataByList(list){
@@ -184,10 +202,15 @@ export default function Home(props) {
         token={token}
       />
       <BottomNavigation
-        kseRESTApi={kseRESTApi}
+        kseRESTApi={kseRESTApi} 
         token={token}
-        authenticated={setAuthenticated}
-        userProfile={setUserProfile}
+        userProfile={userProfile}
+        getEnumDataByList={getEnumDataByList}
+        createEnumOptions={createEnumOptions}
+        callSuccessToast={callSuccessToast}
+        callErrorToast={callErrorToast}
+        fetchDocList={fetchDocList}
+        exitSystemClick={exitSystemClick}
       >
       </BottomNavigation>   
       {/* Вызов toast */}

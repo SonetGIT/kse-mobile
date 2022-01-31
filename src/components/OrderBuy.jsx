@@ -267,7 +267,7 @@ export default (props) => {
     }else{swAllert("Введите торговый счёт!", "warning")}
   }
   
-  /***ОТРИСОВКА */
+  /*ОТРИСОВКА */
   return (
     <div style={modalStyle} className={classes.modal}>
       <table style={{backgroundColor:'#ff7043'}}>
@@ -277,7 +277,7 @@ export default (props) => {
             style={{width:'100%', color:'white', fontFamily:'Roboto', fontSize:14, fontWeight:'bold', textAlign:'center'}}>
               Ввод заявки на ПОКУПКУ
             </td>
-          <td onClick={()=> props.setShowOrderBuy(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2 }}/></td>
+          <td onClick={()=> props.setShowOutMessages(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2 }}/></td>
         </tr>
       </table>
     <div>        
