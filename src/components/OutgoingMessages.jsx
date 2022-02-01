@@ -22,6 +22,7 @@ import { IoIosCloseCircleOutline } from 'react-icons/io';
 import Snackbar from '@material-ui/core/Snackbar';
 import { IoMdArrowDropright} from 'react-icons/io';
 import { IoMdArrowDropleft } from 'react-icons/io';
+import {MdDeleteSweep} from 'react-icons/md';
 import IconButton from '@mui/material/IconButton';
 import 'react-toastify/dist/ReactToastify.css';
 // CUSTOM COMPONENTS
@@ -29,8 +30,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import '../styles/generalStyles.css';
+
 var moment = require('moment');
-var generator = require('generate-password');
 
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
@@ -126,7 +127,7 @@ IntegerFormat.propTypes = {
 }
 
 //Home(props) - получаем переменные от родителя App.js 
-export default (props) => {
+export default function OutgoingMessages(props){
   const cls = useStyles()
   const [token] = useState(props.token)
   const [kseRESTApi] = useState(props.kseRESTApi) //Local KFB main REST
@@ -136,7 +137,6 @@ export default (props) => {
   const [enumOptions, setEnumOptions] = useState({})
   const [selectedOptions, setSelectedOptions] = useState({})
   const [modalStyle] = useState(getModalStyle)
-  const [bidType, setBidType] = useState("limited")
   const [currIndex, setCurrIndex] = useState(0)
   const [docList, setDocList] = useState(null)
   const [snackBarMessage, setSnackBarMessage] = useState("")
@@ -145,42 +145,73 @@ export default (props) => {
   const [selectedMessages, setSelectedMessages] = useState({}) 
   const [selectedMessage, setSelectedMessage] = useState(null)
   const [taskType, setTaskType] = useState("malilsMainForm")
+  const [activeBidsKey, setActiveBidsKey] = useState(null)
+  const [activMessageKey, setActiveMessageKey] = useState(null)
 
-  useEffect(async()=>{
-     let docL = await getOutgoingMessages()
-     setDocList(docL)
-    console.log("ORDER BUY PROPS", props)
-    let enumDataToCollect = [
-      {enumName: 'organizationId', enumDef:'5b78d9dd-821d-4c6a-a00a-3af85224fbc4'},
-      {enumName: 'financeInstrument', enumDef: '3e819d7e-25d0-4a04-a3ff-092fd348a375'},
-    ]
-    let enums = await props.getEnumDataByList(enumDataToCollect)
-    setEnumData(enums)
-    let eOpts = await props.createEnumOptions(enums)
-    setEnumOptions(eOpts)    
-    console.log("Enums", enums) 
-    console.log('DOCLOM', docL)
-  },[])  
+  useEffect(async()=>{     
+    getOutgoingMessages()   
+  },[])
   
+  function getUUID(){
+    return uuidv4()
+  }
+
   function handleCloseSnackBar(){
     setShowSnackBar(false)
-  }  
+  }
   async function getOutgoingMessages(){
-    let docList = await fetch(kseRESTApi + "/api/Messages/Outgoings", 
+    await fetch(kseRESTApi + "/api/Messages/Outgoings", 
       {
         "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
       }
     )
     .then(response => response.json())
     .then(function(res){
-      return res.data
+      setDocList(res.data)
+      setCurrIndex(0)
+      setActiveMessageKey(getUUID())
+      console.log("DOCLOUTMESS", res.data)
+      // return res.data
     })
     .catch(function (error) {
-      console.log("Collecting docList GetViewInstruments error: ", error)
+      console.log("Collecting docList GetActiveBids error: ", error)
       return []
     })
-    return docList
+    // return docList
   }  
+  //Удаление сообщение
+  function deleteMessages(){
+    // handleCloseMenu() //Закрывает Контекстное меню
+    swal({
+      text: "Вы точно хотите удалить сообщение?",
+      icon: "warning",
+      buttons: {yes: "Да", cancel: "Отмена"}
+    })
+    .then(async(click) => {
+      if(click === "yes"){
+        await fetch(kseRESTApi + "/api/Messages/Delete?direction=o",
+          {
+            "headers": { "content-type": "application/json", "Authorization": "Bearer " + token},
+            "method": "POST",
+            "body": JSON.stringify([docList[currIndex].id])
+          }
+        )
+        .then(response => response.json())
+        .then(function(res){
+            console.log("Delete Messages", res)
+            if(res.isSuccess === true){
+              props.callSuccessToast("Сообщение удалено!")
+              getOutgoingMessages()
+            }
+            else{
+              props.callErrorToast(res.errors[0])
+            }
+          }
+        )
+      }
+    })
+  }
+  
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
   function LeftClick(currIndex){
     if(currIndex > 0){
@@ -205,7 +236,7 @@ export default (props) => {
   /***ОТРИСОВКА */
   return (
     <div style={modalStyle} className={cls.modal}>
-      {docList !== null && Object.keys(enumData).length > 0 &&
+      {docList !== null &&
         <Grid>
           <table style={{backgroundColor:'#ff7043'}}>
             <tr>      
@@ -213,8 +244,8 @@ export default (props) => {
                 width="99%" 
                 style={{width:'100%', color:'white', fontFamily:'Roboto', fontSize:14, fontWeight:'bold', textAlign:'center'}}>
                   Отправленные сообщения
-                </td>
-              <td onClick={()=> props.setShowOutMessages(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2 }}/></td>
+                </td>                
+              <td onClick={()=> props.setShowOutMessages(false)}><IoIosCloseCircleOutline size='20' style={{color:'white', paddingTop:2 }}/></td>              
             </tr>
           </table>
           {docList.length !== 0 &&
@@ -224,7 +255,7 @@ export default (props) => {
                 <td className={cls.td1}>{moment(docList[currIndex].createdAt).format("YYYY-MM-DD hh:mm:ss")}</td>
               </tr>
               <tr>
-                <td className={cls.td}> Заголовок </td>
+                <td className={cls.td}> Тема </td>
                 <td className={cls.td1}>{docList[currIndex].subject}</td>
               </tr>
               <tr>
@@ -238,7 +269,12 @@ export default (props) => {
           direction='row'
           justifyContent='flex-end'
           alignItems='center'
-          >
+          > 
+            <MdDeleteSweep 
+              size='15'
+              style={{color:'#dd2c00', marginRight:25}}
+              onClick={()=> deleteMessages()}
+            />
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>LeftClick(currIndex)}>
               <IoMdArrowDropleft/>
             </IconButton>

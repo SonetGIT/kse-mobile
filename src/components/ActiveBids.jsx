@@ -55,21 +55,18 @@ export default function ActiveBids(props) {
     instrumentCode: null
   })
 
-  useEffect(async ()=>{
-    // let docL = await getActiveBids()
+  useEffect(async ()=>{    
     getActiveBids()
-    // setDocList(docL)
-    // createEnumOptions(docL)
-    // console.log("DOCL BIDS", docL)    
   },[])
   
-  const handleCloseMenu = () => {
-    setAnchorEl(null)
-  }
   async function handleOpenMenu(event){
     setAnchorEl(event.currentTarget)
     // console.log("DBL BID", event.currentTarget)
   }
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
+  
   function handleSelectChange(option){
     setSelectedOptions({...selectedOptions, [option.name]: option})
     setFieldValue({...fieldValue, [option.name]: option.value})
@@ -201,23 +198,7 @@ export default function ActiveBids(props) {
               <tr>
                 <td className={cls.td}> Количество </td>
                 <td className={cls.td1}>{docList[currIndex].amount}</td>
-              </tr>
-              <tr>
-                <td className={cls.td}> Код </td>
-                <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       
-              </tr>
-              <tr>
-                <td className={cls.td}> B/S </td>
-                <td className={cls.td1}>{docList[currIndex].direction}</td>
-              </tr>
-              <tr>
-                <td className={cls.td}> Цена </td>
-                <td className={cls.td1}>{docList[currIndex].price}</td>
-              </tr>
-              <tr>
-                <td className={cls.td}> Количество </td>
-                <td className={cls.td1}>{docList[currIndex].amount}</td>
-              </tr>
+              </tr>              
             </table>
           }          
           <Grid 

@@ -137,7 +137,7 @@ export default function Home(props) {
   function callSuccessToast(text){
     toast(text, {
       position: "top-right",
-      autoClose: 4000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -148,7 +148,7 @@ export default function Home(props) {
   function callErrorToast(text){
     toast.error(text, {
       position: "top-right",
-      autoClose: 6000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

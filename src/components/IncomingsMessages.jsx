@@ -23,6 +23,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { IoMdArrowDropright} from 'react-icons/io';
 import { IoMdArrowDropleft } from 'react-icons/io';
 import IconButton from '@mui/material/IconButton';
+import {MdDeleteSweep} from 'react-icons/md';
 import 'react-toastify/dist/ReactToastify.css';
 // CUSTOM COMPONENTS
 // Library
@@ -141,46 +142,67 @@ export default (props) => {
   const [docList, setDocList] = useState(null)
   const [snackBarMessage, setSnackBarMessage] = useState("")
   const [showSnackBar, setShowSnackBar] = useState(false)
-  const [clickedMessagesType, setClickedMessagesType] = useState("inbox") 
-  const [selectedMessages, setSelectedMessages] = useState({}) 
-  const [selectedMessage, setSelectedMessage] = useState(null)
-  const [taskType, setTaskType] = useState("malilsMainForm")
+  const [activMessageKey, setActiveMessageKey] = useState(null)
 
   useEffect(async()=>{
-     let docL = await getIncomingsMessages()
-     setDocList(docL)
-    console.log("ORDER BUY PROPS", props)
-    let enumDataToCollect = [
-      {enumName: 'organizationId', enumDef:'5b78d9dd-821d-4c6a-a00a-3af85224fbc4'},
-      {enumName: 'financeInstrument', enumDef: '3e819d7e-25d0-4a04-a3ff-092fd348a375'},
-    ]
-    let enums = await props.getEnumDataByList(enumDataToCollect)
-    setEnumData(enums)
-    let eOpts = await props.createEnumOptions(enums)
-    setEnumOptions(eOpts)    
-    console.log("Enums", enums) 
-    console.log('DOCLOM', docL)
+    getIncomingsMessages()     
   },[])
   
-  function handleCloseSnackBar(){
-    setShowSnackBar(false)
+  function getUUID(){
+    return uuidv4()
   }
   
   async function getIncomingsMessages(){
-    let docList = await fetch(kseRESTApi + "/api/Messages/Incomings", 
+    await fetch(kseRESTApi + "/api/Messages/Incomings", 
       {
         "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
       }
     )
     .then(response => response.json())
     .then(function(res){
-      return res.data
+      setDocList(res.data)
+      setCurrIndex(0)
+      setActiveMessageKey(getUUID())
+      console.log("DOCLINCOM_MSG", res.data)
     })
     .catch(function (error) {
       console.log("Collecting docList getIncomingsMessages error: ", error)
       return []
     })
-    return docList
+  }
+  function handleCloseSnackBar(){
+    setShowSnackBar(false)
+  }
+  //Удаление сообщение
+  function deleteMessages(){
+    swal({
+      text: "Вы точно хотите удалить сообщение?",
+      icon: "warning",
+      buttons: {yes: "Да", cancel: "Отмена"}
+    })
+    .then(async(click) => {
+      if(click === "yes"){
+        await fetch(kseRESTApi + "/api/Messages/Delete?direction=i",
+          {
+            "headers": { "content-type": "application/json", "Authorization": "Bearer " + token},
+            "method": "POST",
+            "body": JSON.stringify([docList[currIndex].id])
+          }
+        )
+        .then(response => response.json())
+        .then(function(res){
+            console.log("Delete IncomMessages", res)
+            if(res.isSuccess === true){
+              props.callSuccessToast("Сообщение удалено!")
+              getIncomingsMessages()
+            }
+            else{
+              props.callErrorToast(res.errors[0])
+            }
+          }
+        )
+      }
+    })
   }
   
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
@@ -207,7 +229,7 @@ export default (props) => {
   /***ОТРИСОВКА */
   return (
     <div style={modalStyle} className={cls.modal}>
-      {docList !== null && Object.keys(enumData).length > 0 &&
+      {docList !== null && 
         <Grid>
           <table style={{backgroundColor:'#ff7043'}}>
             <tr>      
@@ -226,7 +248,7 @@ export default (props) => {
                 <td className={cls.td1}>{moment(docList[currIndex].createdAt).format("YYYY-MM-DD hh:mm:ss")}</td>
               </tr>
               <tr>
-                <td className={cls.td}> Заголовок </td>
+                <td className={cls.td}> Тема </td>
                 <td className={cls.td1}>{docList[currIndex].subject}</td>
               </tr>
               <tr>
@@ -241,6 +263,11 @@ export default (props) => {
           justifyContent='flex-end'
           alignItems='center'
           >
+            <MdDeleteSweep 
+              size='15'
+              style={{color:'#dd2c00', marginRight:25}}
+              onClick={()=> deleteMessages()}
+            />
             <IconButton style={{padding:1, fontSize:19}} onClick={()=>LeftClick(currIndex)}>
               <IoMdArrowDropleft/>
             </IconButton>

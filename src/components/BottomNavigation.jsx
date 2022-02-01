@@ -14,9 +14,10 @@ import {IoIosMail} from 'react-icons/io';
 import {IoIosMailUnread} from 'react-icons/io';
 import {MdOutgoingMail} from 'react-icons/md';
 import { shouldForwardProp } from '@mui/styled-engine';
-import OutgoingMessages from './OutgoingMessages.jsx';
+import SendMessage from './SendMessage.jsx';
 import IncomingsMessages from './IncomingsMessages.jsx';
-import Mails from './Mails.jsx';
+import OutgoingMessages from './OutgoingMessages.jsx';
+import Send from '@material-ui/icons/Send';
 
 const messageExamples = [
   {
@@ -73,9 +74,10 @@ export default function FixedBottomNavigation(props) {
   const ref = React.useRef(null);
   const [messages, setMessages] = React.useState(() => refreshMessages());
   const [anchorEl, setAnchorEl] = useState(null)
-  const openMenu = Boolean(anchorEl)  
+  const openMenu = Boolean(anchorEl)
+  const [showSendMessage, setShowSendMessage] = useState(false)
   const [showOutMessages, setShowOutMessages] = useState(false)
-  const [showIncomMessages, setShowIncomMessages] = useState(false)
+  const [showIncomMessages, setShowIncomMessages] = useState(false)  
 
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
@@ -87,17 +89,20 @@ export default function FixedBottomNavigation(props) {
     setAnchorEl(event.currentTarget)
     // console.log("DBL BID", event.currentTarget)
   }
+  const closeSendMessageForm = () => {
+    setShowSendMessage(null)
+  }
 
   //ЗАКРЫТЬ КОНТЕКСТНОЕ МЕНЮ
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
 
-  // //Вызов формы НАПИСАТЬ
-  // function showMailsForm(){
-  //   handleCloseMenu()
-  //   props.setShowMails(!props.showMails)
-  // }
+  //Вызов формы НАПИСАТЬ
+  function showSendMessageForm(){
+    handleCloseMenu()
+    setShowSendMessage(!showSendMessage)
+  }
 
   //ОТКРЫТЬ СПИСОК ВХОДЯЩИХ СООБЩЕНИЙ
   function showIncomMessagesForm(){
@@ -108,7 +113,7 @@ export default function FixedBottomNavigation(props) {
   function showOutMessagesForm(){
     handleCloseMenu()
     setShowOutMessages(!showOutMessages)
-  }
+  }  
 
   //ОТРИСОВКА
   return (
@@ -178,12 +183,12 @@ export default function FixedBottomNavigation(props) {
             }}
           >
           <MenuItem 
-            // onClick ={()=> showMailsForm} 
+            onClick ={()=> showSendMessageForm()}
             style={{fontSize:12, fontFamily:'Roboto'}}>
             <RiMessage2Fill 
               size='15'
               style={{color:'#dd2c00', marginRight:4}}
-              // onClick ={()=> showMailsForm()}
+              onClick ={()=> showSendMessageForm()}
             />
             Написать
           </MenuItem>
@@ -208,6 +213,21 @@ export default function FixedBottomNavigation(props) {
             Отправленные
           </MenuItem>
         </Menu>
+        {showSendMessage === true &&
+          <SendMessage
+            //VARS
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            //FUNCTIONS
+            setShowSendMessage={setShowSendMessage}
+            getEnumDataByList={props.getEnumDataByList}
+            createEnumOptions={props.createEnumOptions}
+            callSuccessToast={props.callSuccessToast}
+            callErrorToast={props.callErrorToast}
+            closeSendMessageForm={closeSendMessageForm}
+            showOutMessagesForm={showOutMessagesForm}                     
+          />}
         {showIncomMessages === true &&
           <IncomingsMessages
             // VARS
