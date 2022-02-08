@@ -13,9 +13,11 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Input from '@mui/material/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
+import logo from '../pages/logo.png';
 
 //#FFFFFF - white //#FFFAFA - snow //#e0e0e0 - Gray88 //#616161 - Granite Gray
 const useStyles = makeStyles((theme) => ({
@@ -158,8 +160,11 @@ export default function Authentication(props) {
     <React.Fragment>
       <CssBaseline />
       <Container style={{paddingTop:150}}>
-        <Card>            
-          <p className={cls.p}>Вход в систему</p>            
+        {/* <Card> */}
+          <div align='center'><img src={logo} alt='Logo' /></div>        
+          <Typography variant='h5' style={{fontFamily: 'Roboto', color:'#ff7043', textAlign:'center', textShadow:'1px 1px #dd2c00'}}>
+            Кыргызская Фондовая Биржа
+          </Typography>
           <form
             noValidate
             autoComplete='off'
@@ -169,14 +174,14 @@ export default function Authentication(props) {
             {/*Имя пользователя*/}
             <div style={{paddingTop:'25px'}}>
               <TextField 
+                id="username"
+                label="Логин"               
+                autoComplete={true}
+                variant="standard"
                 error={error}
                 size='small'
-                label='Имя пользователя'
-                variant='outlined'
-                name='username'
-                id='username'
-                autoFocus={true}
-                autoComplete={true}           
+                name='username'                
+                autoFocus={true}                
                 value={username}
                 onChange={handleLoginChange}
                 onKeyPress={onKeyPressLogin}
@@ -187,19 +192,23 @@ export default function Authentication(props) {
             <div align='center'>
               <FormControl
                 size='small'              
-                variant='outlined'
-                className={cls.formControl}
+                variant="standard"
+                // className={cls.formControl}
               >
-                <InputLabel htmlFor='outlined-adornment-password' variant='outlined'> Пароль </InputLabel>
-                <OutlinedInput
-                  error={error}
-                  labelWidth={60}
+                <InputLabel htmlFor="password"> Пароль </InputLabel>
+                <TextField
                   id='password'
+                  label="Пароль"
+                  variant="standard"
+                  error={error}
+                  size='small'
                   name='password'
-                  type={showPassword ? 'text' : 'password'}
+                  autoFocus={true}
                   value={password}
+                  type={showPassword ? 'text' : 'password'}
                   onChange={handlePasswordChange}
                   onKeyPress={onKeyPressPassword}
+                  className={cls.textField}
                   endAdornment={
                     <InputAdornment position='end'>
                       <IconButton
@@ -246,7 +255,7 @@ export default function Authentication(props) {
               <b>Войти</b>
             </Button>
           </div>
-          </Card>
+          {/* </Card> */}
       </Container>
     </React.Fragment>
   )

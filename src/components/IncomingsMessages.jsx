@@ -31,7 +31,6 @@ import { v4 as uuidv4 } from 'uuid';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import '../styles/generalStyles.css';
 var moment = require('moment');
-var generator = require('generate-password');
 
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
@@ -145,13 +144,8 @@ export default (props) => {
   const [activMessageKey, setActiveMessageKey] = useState(null)
 
   useEffect(async()=>{
-    getIncomingsMessages()     
+    getIncomingsMessages()
   },[])
-  
-  function getUUID(){
-    return uuidv4()
-  }
-  
   async function getIncomingsMessages(){
     await fetch(kseRESTApi + "/api/Messages/Incomings", 
       {
@@ -159,8 +153,9 @@ export default (props) => {
       }
     )
     .then(response => response.json())
-    .then(function(res){
-      setDocList(res.data)
+    .then(function(res){      
+      let sortedDocList = res.data.sort(dynamicSort("createdAt", 1, "DateTime"))
+      setDocList(sortedDocList)
       setCurrIndex(0)
       setActiveMessageKey(getUUID())
       console.log("DOCLINCOM_MSG", res.data)
@@ -170,6 +165,63 @@ export default (props) => {
       return []
     })
   }
+  function getUUID(){
+    return uuidv4()
+  }
+  function getEnumLabel(name, id){
+    for(let d=0; d<enumData[name].length; d++){
+      if(enumData[name][d].id === id){
+        return enumData[name][d].label
+      }
+    }
+  }
+  function dynamicSort(property, sortOrder, type) {
+    if(type === "DateTime" || type === "Bool"){
+      sortOrder = sortOrder * -1
+    }
+    if(type === "DateTime"){
+      return function(a, b){
+        if(a[property] !== null && b[property] !== null){
+          let dateA = new Date(a[property].substring(0, 19))
+          let timeInSecA =  dateA.getTime()/1000
+          // console.log("timeInSecA", timeInSecA)
+          let dateB = new Date(b[property].substring(0, 19))
+          let timeInSecB =  dateB.getTime()/1000
+          // console.log("timeInSecB", timeInSecB)
+          var result = (timeInSecA < timeInSecB) ? -1 : (timeInSecA > timeInSecB) ? 1 : 0
+          return result * sortOrder
+        }
+        else{
+          if(a[property] === null){
+            return -1 * sortOrder
+          }
+          return 1 * sortOrder
+        }
+      }
+    }
+    else if(type === "Int" || type === "Text" || type === "Float" || type === "Bool"){
+      return function(a, b){
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0
+        return result * sortOrder
+      }
+    }
+    else if(type === "Enum"){
+      return function(a, b){
+        if(a[property] === null){
+          return 1 * sortOrder
+        }
+        else{
+          let labelA = getEnumLabel(property, a[property])
+          // console.log("A", property, a[property], labelA)
+          let labelB = getEnumLabel(property, b[property])
+          // console.log("labelB", labelB, property, b)
+          var result = (labelA < labelB) ? -1 : (labelA > labelB) ? 1 : 0
+          return result * sortOrder
+        }
+        
+      }
+    }
+  }    
   function handleCloseSnackBar(){
     setShowSnackBar(false)
   }
@@ -203,8 +255,7 @@ export default (props) => {
         )
       }
     })
-  }
-  
+  }  
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
   function LeftClick(currIndex){
     if(currIndex > 0){

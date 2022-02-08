@@ -8,13 +8,14 @@ import logo from '../pages/logo.png';
 //Стили заголовка
 const useStyles = makeStyles((theme) => ({
   div: {
-    borderBottom:'ridge 2px #1565c0'
+    // borderBottom:'ridge 2px #1565c0',
+    border:'ridge 1px red'
   },
   appBar: {    
     background: 'linear-gradient(35deg, #514A9D, #24C6DC)'    
   },
   title: {
-    fontFamily: 'Sistem-ui',
+    fontFamily: 'Roboto',
     color:'#fafafa',
     textAlign:'center',
     textShadow:'2px 2px #514A9D'
@@ -24,15 +25,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const cls = useStyles();
   return (
-    <div className={cls.div}>
-      <AppBar position='static' className={cls.appBar}>      
+    <div>
+      <img src={logo} alt='Logo' />
+      <Typography variant='h5' className={cls.title}>
+            Кыргызская Фондовая Биржа
+      </Typography>
+      {/* <AppBar position='static' className={cls.appBar}>      
         <Toolbar style={{paddingLeft:1}}>
           <img src={logo} alt='Logo'/>
           <Typography variant='h5' className={cls.title}>
             Кыргызская Фондовая Биржа
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
     </div>
   );
 }

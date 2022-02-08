@@ -26,6 +26,7 @@ export default function Home(props) {
     props.setAuthenticated(false)
     props.setUserProfile({})
   }
+  
   async function fetchDocList(docListApi){
     // console.log("API", kseRESTApi + docListApi)
     let docList = await fetch(kseRESTApi + docListApi, 

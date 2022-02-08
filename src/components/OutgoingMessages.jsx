@@ -151,14 +151,6 @@ export default function OutgoingMessages(props){
   useEffect(async()=>{     
     getOutgoingMessages()   
   },[])
-  
-  function getUUID(){
-    return uuidv4()
-  }
-
-  function handleCloseSnackBar(){
-    setShowSnackBar(false)
-  }
   async function getOutgoingMessages(){
     await fetch(kseRESTApi + "/api/Messages/Outgoings", 
       {
@@ -167,10 +159,11 @@ export default function OutgoingMessages(props){
     )
     .then(response => response.json())
     .then(function(res){
-      setDocList(res.data)
+      let sortedDocList = res.data.sort(dynamicSort("createdAt", 1, "DateTime"))
+      setDocList(sortedDocList)
       setCurrIndex(0)
       setActiveMessageKey(getUUID())
-      console.log("DOCLOUTMESS", res.data)
+      console.log("DOCLOUTMESS", res.data)      
       // return res.data
     })
     .catch(function (error) {
@@ -178,7 +171,67 @@ export default function OutgoingMessages(props){
       return []
     })
     // return docList
+  }
+  function getUUID(){
+    return uuidv4()
+  }
+  function handleCloseSnackBar(){
+    setShowSnackBar(false)
   }  
+  function getEnumLabel(name, id){
+    for(let d=0; d<enumData[name].length; d++){
+      if(enumData[name][d].id === id){
+        return enumData[name][d].label
+      }
+    }
+  }
+  function dynamicSort(property, sortOrder, type) {
+    if(type === "DateTime" || type === "Bool"){
+      sortOrder = sortOrder * -1
+    }
+    if(type === "DateTime"){
+      return function(a, b){
+        if(a[property] !== null && b[property] !== null){
+          let dateA = new Date(a[property].substring(0, 19))
+          let timeInSecA =  dateA.getTime()/1000
+          // console.log("timeInSecA", timeInSecA)
+          let dateB = new Date(b[property].substring(0, 19))
+          let timeInSecB =  dateB.getTime()/1000
+          // console.log("timeInSecB", timeInSecB)
+          var result = (timeInSecA < timeInSecB) ? -1 : (timeInSecA > timeInSecB) ? 1 : 0
+          return result * sortOrder
+        }
+        else{
+          if(a[property] === null){
+            return -1 * sortOrder
+          }
+          return 1 * sortOrder
+        }
+      }
+    }
+    else if(type === "Int" || type === "Text" || type === "Float" || type === "Bool"){
+      return function(a, b){
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0
+        return result * sortOrder
+      }
+    }
+    else if(type === "Enum"){
+      return function(a, b){
+        if(a[property] === null){
+          return 1 * sortOrder
+        }
+        else{
+          let labelA = getEnumLabel(property, a[property])
+          // console.log("A", property, a[property], labelA)
+          let labelB = getEnumLabel(property, b[property])
+          // console.log("labelB", labelB, property, b)
+          var result = (labelA < labelB) ? -1 : (labelA > labelB) ? 1 : 0
+          return result * sortOrder
+        }
+        
+      }
+    }
+  } 
   //Удаление сообщение
   function deleteMessages(){
     // handleCloseMenu() //Закрывает Контекстное меню
@@ -210,8 +263,7 @@ export default function OutgoingMessages(props){
         )
       }
     })
-  }
-  
+  }  
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
   function LeftClick(currIndex){
     if(currIndex > 0){

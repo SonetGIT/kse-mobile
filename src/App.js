@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import Header from './components/Header.jsx'
 import Authentication from './components/Authentication.jsx'
 import Home from './components/Home.jsx';
 
@@ -24,10 +23,8 @@ export default function App() {
   }
   
   return (
-    // <Home></Home>
     authenticated === false ?
-    <div style={{backgroundColor:'#f5f5f5', paddingBottom:40, width:'100%', height:'100vh'}}>
-    <Header/>
+    <div style={{backgroundColor:'#FFFAFA', paddingBottom:40, width:'100%', height:'100vh'}}>
     <Authentication
     kseRESTApi={kseRESTApi}
     authenticate={authenticate}
