@@ -16,9 +16,11 @@ import ConfigurationFile from '../configuration/ConfigurationFile.json';
 export default function Home(props) {
   const [kseRESTApi] = useState(props.kseRESTApi)
   const [token, setToken] = useState(props.token);
-  const [userProfile, setUserProfile] = useState(props.userProfile);  
+  const [userProfile, setUserProfile] = useState(props.userProfile);
+  // console.log("USERNAME", userProfile.lastName)  
   const [authenticated, setAuthenticated] = useState(props.authenticated);
   const [showMails, setShowMails] = useState(false)
+  // const [userName, setUserName] = useState(props.username)
   
   //Выход из ситемы
   function exitSystemClick(){
@@ -160,15 +162,20 @@ export default function Home(props) {
   /*ОТРИСОВКА*****************************************************************************************************************************************/
   return (
     <div style={{width:'100%', height:'100vh'}}>
-      <AppBar style={{width:'100%', height:45, backgroundColor:'#ff7043'}}>
+      <AppBar style={{width:'100%', height:45, backgroundColor:'#ff7043'}}>        
         <Grid 
           container
           direction="row"
           justifyContent="flex-end"
           alignItems="center"
           style={{backgroundColor:'#ff7043'}}        
-          >          
+          >
           <OnlineTime/>
+          <div>
+            {userProfile.firstName}
+              <br/>
+            {userProfile.lastName}
+          </div>
         </Grid>
       </AppBar>
       <Briefcase

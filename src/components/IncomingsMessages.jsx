@@ -1,22 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Select from 'react-select'; // https://react-select.com/home
 import NumberFormat from 'react-number-format';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import Tab from '@mui/material/Tab';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
-import ruLocale from 'date-fns/locale/ru';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-
-import Checkbox from '@material-ui/core/Checkbox';
 // Icons
-import AddIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveIcon from '@mui/icons-material/RemoveCircleOutline';
-import {GoBriefcase} from 'react-icons/go';
 import { Grid } from '@material-ui/core';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -25,11 +11,11 @@ import { IoMdArrowDropleft } from 'react-icons/io';
 import IconButton from '@mui/material/IconButton';
 import {MdDeleteSweep} from 'react-icons/md';
 import 'react-toastify/dist/ReactToastify.css';
-// CUSTOM COMPONENTS
 // Library
 import { v4 as uuidv4 } from 'uuid';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import '../styles/generalStyles.css';
+import { fontWeight } from "@mui/system";
 var moment = require('moment');
 
 //Стили заголовка
@@ -43,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 3,
     fontFamily:'Roboto',
     fontSize:12,
-    background:'#f5f5f5'
+    background:'#FFFAFA'
   },  
   td:{    
     borderBottom:'solid 1px #ffd6c9',
@@ -63,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize:11,
     color:'#757575',
     paddingLeft:5,
-    width:'100%'  
+    width:'100%'
   }
 }));
 function getModalStyle() {
@@ -154,16 +140,35 @@ export default (props) => {
     )
     .then(response => response.json())
     .then(function(res){      
-      let sortedDocList = res.data.sort(dynamicSort("createdAt", 1, "DateTime"))
+      let sortedDocList = res.data.sort(dynamicSort("createdAt", 1, "DateTime"))      
       setDocList(sortedDocList)
       setCurrIndex(0)
       setActiveMessageKey(getUUID())
-      console.log("DOCLINCOM_MSG", res.data)
+
+      if(sortedDocList[0].read === false){
+        getReadState(0)
+      }
+      //  console.log("DOCLINCOM_MSGREAD", res.read)
     })
     .catch(function (error) {
       console.log("Collecting docList getIncomingsMessages error: ", error)
       return []
     })
+  }
+  async function getReadState(index){
+    // await fetch(kseRESTApi + "/api/Messages/Incomings/SetRead?id=" + docList[index].id,
+    //   {
+    //     "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
+    //   }
+    // )
+    // .then(response => response.json())
+    // .then(function(res){
+    //   console.log("RES READ", res)
+    // })
+    // .catch(function (error) {
+    //   console.log("Collecting docList getIncomingsMessages error: ", error)
+    //   return []
+    // })
   }
   function getUUID(){
     return uuidv4()
@@ -261,6 +266,9 @@ export default (props) => {
     if(currIndex > 0){
       var prevPage = currIndex - 1
       setCurrIndex(prevPage)
+      if(docList[currIndex - 1].read === false){
+        getReadState(currIndex - 1)
+      }
     }
     else{
       setSnackBarMessage("Вы на первой записи!")
@@ -275,6 +283,9 @@ export default (props) => {
     } 
     else{
       setCurrIndex(currIndex + 1)
+      if(docList[currIndex + 1].read === false){
+        getReadState(currIndex + 1)
+      }
     }    
   }
   /***ОТРИСОВКА */
@@ -288,23 +299,59 @@ export default (props) => {
                 width="99%" 
                 style={{width:'100%', color:'white', fontFamily:'Roboto', fontSize:14, fontWeight:'bold', textAlign:'center'}}>
                   Входящие сообщения
-                </td>
-              <td onClick={()=> props.setShowIncomMessages(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2 }}/></td>
+              </td>
+              <td onClick={()=> props.setShowIncomMessages(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2}}/></td>
             </tr>
           </table>
-          {docList.length !== 0 &&
-            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+          {docList.length !== 0 && 
+            <table style={{color:'#FFFAFA', fontFamily:'Roboto', borderCollapse:'collapse'}}>              
               <tr>
                 <td className={cls.td}> Дата </td>
-                <td className={cls.td1}>{moment(docList[currIndex].createdAt).format("YYYY-MM-DD hh:mm:ss")}</td>
+                <td style={{
+                  borderBottom:'solid 1px #ffd6c9',
+                  fontFamily:'Roboto',
+                  fontSize:11,
+                  color:'#757575',
+                  paddingLeft:5,
+                  width:'100%',
+                  fontWeight: docList[currIndex].read === false ? 'bold' : 'normal',
+                  textDecoration: docList[currIndex].read === false ? 'underline' : 'none',
+                  textDecorationColor: docList[currIndex].read === false ? '#dd2c00' : '#FFFAFA'}} 
+                >
+                  {moment(docList[currIndex].createdAt).format("YYYY-MM-DD hh:mm:ss")}
+                </td>
               </tr>
               <tr>
                 <td className={cls.td}> Тема </td>
-                <td className={cls.td1}>{docList[currIndex].subject}</td>
+                <td style={{
+                  borderBottom:'solid 1px #ffd6c9',
+                  fontFamily:'Roboto',
+                  fontSize:11,
+                  color:'#757575',
+                  paddingLeft:5,
+                  width:'100%',
+                  fontWeight: docList[currIndex].read === false ? 'bold' : 'normal',
+                  textDecoration: docList[currIndex].read === false ? 'underline' : 'none',
+                  textDecorationColor: docList[currIndex].read === false ? '#dd2c00' : '#FFFAFA'}} 
+                >
+                  {docList[currIndex].subject}
+                </td>
               </tr>
               <tr>
                 <td className={cls.td}> Содержание </td>
-                <td className={cls.td1}>{docList[currIndex].body}</td>
+                <td style={{
+                  borderBottom:'solid 1px #ffd6c9',
+                  fontFamily:'Roboto',
+                  fontSize:11,
+                  color:'#757575',
+                  paddingLeft:5,
+                  width:'100%',
+                  fontWeight: docList[currIndex].read === false ? 'bold' : 'normal',
+                  textDecoration: docList[currIndex].read === false ? 'underline' : 'none',
+                  textDecorationColor: docList[currIndex].read === false ? '#dd2c00' : '#FFFAFA'}}
+                >
+                  {docList[currIndex].body}
+                </td>
               </tr>
             </table>
           }

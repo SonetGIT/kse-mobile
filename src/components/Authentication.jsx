@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Authentication(props) {  
   const cls = useStyles();
-  const [kseRESTApi] = useState(props.kseRESTApi) //KFB main REST
+  const [kseRESTApi] = useState(props.kseRESTApi) //KSE main REST
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -103,7 +103,7 @@ export default function Authentication(props) {
     .then(response => response.json())
     .then(async function(res){
         // console.log("RES", res)
-        // console.log("AUTH TOKEN", res.token)
+        console.log("AUTH TOKEN", res.token)
         if(res.isAuthSuccessful === true){
           // props.setToken(res.token)
           await fetchUserProfile(res.token)

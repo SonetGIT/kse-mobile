@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 3,
     fontFamily:'Roboto',
     fontSize:12,
-    background:'#f5f5f5'
+    background:'#FFFAFA'
   },  
   td:{    
     borderBottom:'solid 1px #ffd6c9',
@@ -301,7 +301,7 @@ export default function OutgoingMessages(props){
             </tr>
           </table>
           {docList.length !== 0 &&
-            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+            <table style={{color:'#FFFAFA', fontFamily:'Roboto', borderCollapse:'collapse'}}>
               <tr>
                 <td className={cls.td}> Дата </td>
                 <td className={cls.td1}>{moment(docList[currIndex].createdAt).format("YYYY-MM-DD hh:mm:ss")}</td>

@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 function getModalStyle() {
-  const bottom = 40;
-  const left = 40;
+  const bottom = 85;
+  const left = 82;
   return {
     bottom: `${bottom}%`,
     left: `${left}%`,
@@ -184,87 +184,18 @@ export default (props) => {
           <td
             width="99%" 
             style={{width:'100%', color:'white', fontFamily:'Roboto', fontSize:16, fontWeight:'bold', textAlign:'center'}}>
-              Новое сообщение
+              Контакты
             </td>
           <td onClick={()=> props.setShowSendMessage(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2 }}/></td>
         </tr>
       </table>
-    <div>        
-      <div>
-      <table align="center" width="100%">        
-        <tr>
-        <td width="15%">Кому</td>
-          <td width="35%" height="10%">
-            <Select
-              name = {"recipients"}
-              placeholder = {"Выбрать..."}
-              value = {setSelectedOptions["selectedRecipient"]}
-              onChange = {handleSelectChange}
-              options = {enumOptions["recipients"]}
-              // isDisabled={true}
-            />
-          </td>
-        </tr>
-      </table>      
-      <Grid container direction="row">
-        <TextField
-          id="outlined-multiline-static"
-          label="Тема"
-          multiline
-          onBlur = {handleTextChange}
-          name = {"subject"}
-          defaultValue = {fieldValue["subject"]}
-          variant="outlined"
-          style={{width: "100%"}}
-        />
-        <TextField
-          id="outlined-multiline-static"
-          label="Текст уведомления"
-          multiline
-          rows={4}
-          onBlur = {handleTextChange}
-          name = {"body"}
-          defaultValue = {fieldValue["body"]}
-          variant="outlined"
-          style={{width: "100%"}}
-        />
-      </Grid>        
-      <table width="100%" style={{margin: 5}}>
-        <tr align="center">
-          <td>
-            <Button
-              variant="contained"
-              onClick = {()=> sendMessage()}
-              style={{                
-                margin: 3,
-                height: 27,
-                fontSize: 10,
-                color: "white",
-                backgroundColor: "green",
-                border:'solid 1px #1b5e20',
-                fontFamily: 'Roboto'
-              }}
-              >Отправить
-            </Button>
-            <Button
-              variant="contained"                         
-              onClick = {()=> props.setShowSendMessage(false)}
-              style={{
-                margin: 3,
-                height: 27,
-                fontSize: 10,
-                color: "white",
-                backgroundColor: "#dd2c00",
-                border:'solid 1px #bf360c',
-                fontFamily: 'Roboto'
-              }}
-              >Отмена
-            </Button>
-          </td>
-          </tr>
-          </table>
-        </div>
-      </div>    
-    </div>
+      <table align='center' style={{color:'#ff7043', height:50, padding:10, fontSize:13}}>
+        <tr>Адрес: г. Бишкек, ул. Московская, 172</tr>
+        <tr>Почтовый адрес: 720010 Кыргызская Республика</tr>
+        <tr>Телефон: +996 312 31-14-84</tr>
+        <tr>Факс: +996 312 31-14-83</tr>
+        <tr>E-mail: office@kse.kg</tr>
+      </table>     
+    </div>    
   )
 }

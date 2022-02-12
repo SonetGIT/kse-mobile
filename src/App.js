@@ -26,8 +26,9 @@ export default function App() {
     authenticated === false ?
     <div style={{backgroundColor:'#FFFAFA', paddingBottom:40, width:'100%', height:'100vh'}}>
     <Authentication
-    kseRESTApi={kseRESTApi}
-    authenticate={authenticate}
+      kseRESTApi={kseRESTApi}
+      // FUNCTIONS
+      authenticate={authenticate}
     />
     </div>
     :

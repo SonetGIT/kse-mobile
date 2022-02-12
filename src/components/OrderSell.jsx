@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 3,
     fontFamily:'Roboto',
     fontSize:12,
-    background:'#f5f5f5'
+    background:'#FFFAFA'
   }
 }))
 function getModalStyle() {

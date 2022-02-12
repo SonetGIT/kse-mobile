@@ -121,7 +121,7 @@ export default function MoneyPositions(props) {
             </tr>
           </table>
           {docList.length !== 0 &&
-            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+            <table style={{color:'#FFFAFA', fontFamily:'Roboto', borderCollapse:'collapse'}}>
               <tr>
                 <td className={cls.td}> Организация </td>
                 <td className={cls.td1}>{getEnumLabel('organizationId', docList[currIndex].organizationId)}</td>

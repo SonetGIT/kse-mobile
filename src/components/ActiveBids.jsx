@@ -182,7 +182,7 @@ export default function ActiveBids(props) {
             </tr>
           </table>
           {docList.length !== 0 &&
-            <table style={{color:'#f5f5f5', fontFamily:'Roboto', borderCollapse:'collapse'}}>
+            <table style={{color:'#FFFAFA', fontFamily:'Roboto', borderCollapse:'collapse'}}>
               <tr>
                 <td className={cls.td}> Код </td>
                 <td className={cls.td1}>{docList[currIndex].instrumentCode}</td>       

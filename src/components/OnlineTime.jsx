@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   timeText: {
     fontFamily:'Roboto',
-    fontSize:14,
+    fontSize:12,
     maxWidth:130,  
     color:'white',
-    paddingRight:10
+    paddingRight:20
     }
   }));
 

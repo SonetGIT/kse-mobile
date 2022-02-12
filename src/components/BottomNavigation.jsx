@@ -13,10 +13,13 @@ import MenuItem from '@mui/material/MenuItem';
 import {IoIosMail} from 'react-icons/io';
 import {IoIosMailUnread} from 'react-icons/io';
 import {MdOutgoingMail} from 'react-icons/md';
+import {MdContactSupport} from 'react-icons/md';
 import { shouldForwardProp } from '@mui/styled-engine';
 import SendMessage from './SendMessage.jsx';
 import IncomingsMessages from './IncomingsMessages.jsx';
 import OutgoingMessages from './OutgoingMessages.jsx';
+import ContactSupport from './ContactSupport.jsx';
+import News from './News.jsx';
 
 const messageExamples = [];
 
@@ -39,7 +42,9 @@ export default function FixedBottomNavigation(props) {
   const [showSendMessage, setShowSendMessage] = useState(false)
   const [showOutMessages, setShowOutMessages] = useState(false)
   const [showIncomMessages, setShowIncomMessages] = useState(false) 
+  const [showContactSupp, setShowContactSupp] = useState(false)
   const [unreadCount, setUnreadCount] = useState(null)
+  const [showNews, setShowNews] = useState(null)
 
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
@@ -90,14 +95,21 @@ export default function FixedBottomNavigation(props) {
   //ОТКРЫТЬ СПИСОК ВХОДЯЩИХ СООБЩЕНИЙ
   function showIncomMessagesForm(){
     handleCloseMenu()
-    setShowIncomMessages(!showIncomMessages)    
-  }
+    setShowIncomMessages(!showIncomMessages)
+  }  
   //ОТКРЫТЬ СПИСОК ОТПРАВЛЕННЫХ СООБЩЕНИЙ
   function showOutMessagesForm(){
     handleCloseMenu()
     setShowOutMessages(!showOutMessages)
   }
-
+  function showContactSuppForm()
+  {
+      handleCloseMenu()
+      setShowContactSupp(!showContactSupp)
+  }
+  function showNewsForm(){
+    setShowNews(!showNews)
+  }
   //ОТРИСОВКА
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
@@ -138,13 +150,26 @@ export default function FixedBottomNavigation(props) {
           <BottomNavigationAction 
             label='Новости'
             style={{color:'#dd2c00', fontFamily:'Roboto'}} 
-            // href={"https://www.kse.kg/ru/RussianNewsBlog/"}
+            onClick={() => showNewsForm()}           
             icon={
               <GiNewspaper 
                 size={14} 
                 style={{color:'#dd2c00'}}
+                onClick={()=>showNewsForm()}
               />              
             }            
+          />
+          <BottomNavigationAction
+            label='Контакты'
+            style={{color:'#dd2c00', fontFamily:'Roboto'}}
+            onClick={()=> showContactSuppForm()}
+            icon={
+              <MdContactSupport
+                sixe={15}
+                style={{color:'#dd2c00'}}
+                onClick={()=> showContactSuppForm()}
+              />
+            }
           />
           <BottomNavigationAction 
             label='Выйти'
@@ -185,22 +210,24 @@ export default function FixedBottomNavigation(props) {
               style={{color:'#dd2c00', marginRight:4}}
               onClick ={()=> showIncomMessagesForm()}
             />
-            Входящие
-            <div 
-              style={{
-                background:'#98FB98',
-                borderRadius:8,
-                width:15,
-                height:16,
-                margin:4,
-                fontFamily:'Roboto',
-                fontSize:11,
-                textAlign:'center',
-                color:'#dd2c00',
-                fontWeight:'bold'
-              }}>
-                {unreadCount}
-            </div>
+              Входящие
+            {unreadCount !== null &&
+              <div 
+                style={{
+                  background:'#98FB98',
+                  borderRadius:8,
+                  width:15,
+                  height:16,
+                  margin:4,
+                  fontFamily:'Roboto',
+                  fontSize:11,
+                  textAlign:'center',
+                  color:'#dd2c00',
+                  fontWeight:'bold'
+                }}>                
+                  {unreadCount}
+              </div>
+            }
           </MenuItem>          
           <MenuItem 
             onClick ={()=> showOutMessagesForm()}
@@ -255,6 +282,23 @@ export default function FixedBottomNavigation(props) {
             callSuccessToast={props.callSuccessToast}
             callErrorToast={props.callErrorToast}
           />
+        }
+        {showContactSupp === true &&
+          <ContactSupport
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            setShowContactSupp={setShowContactSupp}
+          />
+        }
+        {showNews === true &&
+          <News
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            setShowNews={setShowNews}
+          />
+        
         }
         </BottomNavigation>
       </Paper>
