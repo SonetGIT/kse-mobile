@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 function getModalStyle() {
-  const top = 50;
+  const top = 24;
   return {
     top: `${top}%`,
     zIndex: 1

@@ -18,6 +18,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import Card from '@material-ui/core/Card';
 import logo from '../pages/logo.png';
+import { styled } from '@mui/material/styles';
 
 //#FFFFFF - white //#FFFAFA - snow //#e0e0e0 - Gray88 //#616161 - Granite Gray
 const useStyles = makeStyles((theme) => ({
@@ -32,9 +33,9 @@ const useStyles = makeStyles((theme) => ({
   textField:{
     marginBottom:20,
     width:260,     
-    border:'solid 1px #fafafa',
-    background:'#FFFAFA',
-    borderRadius:'10px'
+    // border:'solid 1px #fafafa',
+    borderRadius:'10px',
+    background: "#fafafa"
   },
   formControl:{    
     width:260,
@@ -43,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
   btn:{
     color:'#FFFAFA',
-    border:'solid 1px #FF6800',
-    backgroundColor:'#ff7043',   
+    border:'solid 1px #1b5e20',
+    backgroundColor:'green',   
     marginTop:45,
     marginBottom:20,
     fontFamily:'Roboto',
@@ -162,7 +163,7 @@ export default function Authentication(props) {
       <Container style={{paddingTop:150}}>
         {/* <Card> */}
           <div align='center'><img src={logo} alt='Logo' /></div>        
-          <Typography variant='h5' style={{fontFamily: 'Roboto', color:'#ff7043', textAlign:'center', textShadow:'1px 1px #dd2c00'}}>
+          <Typography variant='h6' style={{fontFamily: 'Roboto', color:'#dd2c00', fontWeight:'bold', textAlign:'center'}}>
             Кыргызская Фондовая Биржа
           </Typography>
           <form
@@ -175,12 +176,12 @@ export default function Authentication(props) {
             <div style={{paddingTop:'25px'}}>
               <TextField 
                 id="username"
-                label="Логин"               
+                label="Логин"
                 autoComplete={true}
-                variant="standard"
+                variant="outlined"
                 error={error}
                 size='small'
-                name='username'                
+                name='username'
                 autoFocus={true}                
                 value={username}
                 onChange={handleLoginChange}
@@ -192,14 +193,13 @@ export default function Authentication(props) {
             <div align='center'>
               <FormControl
                 size='small'              
-                variant="standard"
+                variant="outlined"
                 // className={cls.formControl}
               >
-                <InputLabel htmlFor="password"> Пароль </InputLabel>
                 <TextField
                   id='password'
                   label="Пароль"
-                  variant="standard"
+                  variant="outlined"
                   error={error}
                   size='small'
                   name='password'
@@ -234,12 +234,12 @@ export default function Authentication(props) {
                   control={
                     <Checkbox 
                       size='small' 
-                      style={{color:'#1565c0'}} 
+                      style={{color:'green'}} 
                       onChange={handleRememberMeChange}
                       checked={rememberMe}
                     />
                   }
-                  label={<Typography style={{fontFamily:'Garamond', fontSize:18}}>Запомнить меня?</Typography>} 
+                  label={<Typography style={{fontFamily:'Garamond', fontSize:18, color:'green'}}>Запомнить меня?</Typography>} 
                   labelPlacement='end'
                 />
               </FormGroup>

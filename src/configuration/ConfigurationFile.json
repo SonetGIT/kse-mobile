@@ -17,7 +17,7 @@
         "attributes": ["attributes"]
       },
       "apiName": "/api/Users/Gets"
-    },
+    },    
     "ab14dc6d-0139-4dd4-ab65-172cacb636f8": {
       "data": {
         "id": "id",
@@ -28,16 +28,18 @@
     "3e66280f-9295-46af-8855-cfce4d98faf1": {
       "data": {
         "id": "id",
-        "label": ["name"]
+        "label": ["name"],
+        "sector": ["marketSectorId"]
       },
       "apiName": "/api/InstrumentGroups"
     },
     "3e819d7e-25d0-4a04-a3ff-092fd348a375": {
       "data": {
         "id": "id",
-        "label": ["code", " ", "-", " ", "emitentName"]
+        "label": ["code", " ", "-", " ", "emitentName", "isin"],
+        "group": ["instrumentGroupId"]
       },
-      "apiName": "/api/FinanceInstruments"                  
+      "apiName": "/api/FinanceInstruments"
     },
     "3bac793e-bc73-44f4-a18f-8c1a55efe919": {
       "data": {
@@ -92,7 +94,8 @@
     "df59dde0-68fd-4a8b-84e1-aa33531d2fe6": {
       "data": {
         "id": "id",
-        "label": ["name"]
+        "label": ["name"],
+        "market": ["marketId"]
       },
       "apiName": "/api/MarketSectors"
     },

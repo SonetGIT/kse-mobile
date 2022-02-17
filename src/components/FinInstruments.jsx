@@ -3,15 +3,17 @@ import { makeStyles} from '@material-ui/core/styles';
 import { IoMdArrowDropright} from 'react-icons/io';
 import { IoMdArrowDropleft } from 'react-icons/io';
 import { AiOutlineAreaChart } from 'react-icons/ai';
+import { AiTwotoneFilter } from 'react-icons/ai';
 import { Grid } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import Select from 'react-select'; // https://react-select.com/home
 import Snackbar from '@material-ui/core/Snackbar';
-import Charts from './Charts.jsx';
 import {AiFillGold} from 'react-icons/ai';
 import {SiPandas} from 'react-icons/si';
 import OrderBuy from './OrderBuy.jsx';
 import OrderSell from './OrderSell.jsx';
+import Charts from './Charts.jsx';
+import InstrumentFilters from './InstrumentFilters.jsx';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {GiBuyCard} from 'react-icons/gi';
@@ -54,6 +56,7 @@ export default function FinInstruments(props) {
   const [quotationKey, setQuotationKey] = useState(null)  
   const [charts, setCharts] = useState(false)
   const [showCharts, setShowCharts] = useState(false)
+  const [showInstrumentFilters, setShowInstrumentFilters] = useState(false) 
   const [showOpenEllipsis, setShowOpenEllipsis] = useState(false)
   const [showOrderBuy, setShowOrderBuy] = useState(false)
   const [showOrderSell, setShowOrderSell] = useState(false)
@@ -163,7 +166,12 @@ export default function FinInstruments(props) {
   function showChartsForm(){
     handleCloseMenu()
     setShowCharts(!showCharts)
-  }  
+  }
+  //Открыть форму ФИЛЬТРА
+  function showInstrumentFiltersForm(){
+    handleCloseMenu()
+    setShowInstrumentFilters(!showInstrumentFilters)
+  }
  
   //ОБЩЕЕ КОЛИЧЕСТВО ИНСТРУМЕНТОВ  
   async function LeftClick(currIndex){
@@ -315,6 +323,16 @@ export default function FinInstruments(props) {
             />
             Диаграмма
           </MenuItem>
+          <MenuItem 
+            onClick ={()=> showInstrumentFiltersForm()}
+            style={{fontSize:12, fontFamily:'Roboto'}}>
+            <AiTwotoneFilter 
+              size='18'
+              style={{color:'#dd2c00', marginRight:4}}
+              onClick ={()=> showInstrumentFiltersForm()}
+            />
+            Фильтр
+          </MenuItem>
         </Menu>
         {showOrderBuy === true &&
           <OrderBuy        
@@ -349,6 +367,19 @@ export default function FinInstruments(props) {
             userProfile={props.userProfile}
             code={docList[currIndex].code}
             setShowCharts={setShowCharts}            
+          />
+        }
+        {showInstrumentFilters === true &&
+          <InstrumentFilters
+            kseRESTApi={props.kseRESTApi}
+            token={props.token}
+            userProfile={props.userProfile}
+            code={docList[currIndex].code}
+            setShowInstrumentFilters={setShowInstrumentFilters}
+            getEnumDataByList={props.getEnumDataByList}
+            createEnumOptions={props.createEnumOptions}
+            callSuccessToast={props.callSuccessToast}
+            callErrorToast={props.callErrorToast}
           />
         }
         <Snackbar

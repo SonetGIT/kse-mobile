@@ -40,12 +40,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 function getModalStyle() {
-  const top = 20;
-  const left = 24;
+  const top = 7;
+  const left = 5;
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
+    zIndex: 20
+    // transform: `translate(-${top}%, -${left}%)`,
   };
 }
 function FloatFormat(props){

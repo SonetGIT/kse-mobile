@@ -19,8 +19,6 @@ export default function Home(props) {
   const [userProfile, setUserProfile] = useState(props.userProfile);
   // console.log("USERNAME", userProfile.lastName)  
   const [authenticated, setAuthenticated] = useState(props.authenticated);
-  const [showMails, setShowMails] = useState(false)
-  // const [userName, setUserName] = useState(props.username)
   
   //Выход из ситемы
   function exitSystemClick(){
@@ -162,7 +160,7 @@ export default function Home(props) {
   /*ОТРИСОВКА*****************************************************************************************************************************************/
   return (
     <div style={{width:'100%', height:'100vh'}}>
-      <AppBar style={{width:'100%', height:45, backgroundColor:'#ff7043'}}>        
+      <AppBar style={{width:'100%', height:45, backgroundColor:'#ff7043'}}> 
         <Grid 
           container
           direction="row"
@@ -170,13 +168,19 @@ export default function Home(props) {
           alignItems="center"
           style={{backgroundColor:'#ff7043'}}        
           >
-          <OnlineTime/>
-          <div>
-            {userProfile.firstName}
-              <br/>
-            {userProfile.lastName}
-          </div>
-        </Grid>
+            <OnlineTime/>
+            <div 
+              style={{
+                fontFamily:'Roboto',
+                fontSize:13,
+                maxWidth:130,  
+                color:'white',
+                paddingRight:20
+                }}
+              >
+              {userProfile.lastName + ' ' + userProfile.firstName.substring(0, 1) + '.' + userProfile.middleName.substring(0, 1) + '.'}
+            </div>          
+        </Grid>        
       </AppBar>
       <Briefcase
         kseRESTApi={kseRESTApi}

@@ -41,11 +41,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 function getModalStyle() {
-  const top = 6;
-  const left = 6;
+  const top = 7;
+  const left = 5;
   return {
     top: `${top}%`,
-    left: `${left}%`    
+    left: `${left}%`,
+    zIndex:20
   };
 }
 

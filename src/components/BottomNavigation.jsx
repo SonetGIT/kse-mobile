@@ -122,11 +122,11 @@ export default function FixedBottomNavigation(props) {
           showLabels
           value={value}
           onChange={(event, newValue) => {setValue(newValue);}}
-          style={{backgroundColor:'#ffd6c9', height:50, borderTopLeftRadius:5, borderTopRightRadius:5}}          
+          style={{backgroundColor:'#ffd6c9', height:50, fontSize:8, borderTopLeftRadius:5, borderTopRightRadius:5}}          
         >
          <BottomNavigationAction 
             label='Главное'
-            style={{color:'#dd2c00', fontFamily:'Roboto', fontSize:10}} 
+            style={{color:'#dd2c00', fontFamily:'Roboto'}} 
             icon={
               <RiHome8Fill 
                 size={14} 
@@ -293,9 +293,6 @@ export default function FixedBottomNavigation(props) {
         }
         {showNews === true &&
           <News
-            kseRESTApi={props.kseRESTApi}
-            token={props.token}
-            userProfile={props.userProfile}
             setShowNews={setShowNews}
           />
         
