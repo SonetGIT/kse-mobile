@@ -15,7 +15,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { v4 as uuidv4 } from 'uuid';
 import swal from 'sweetalert'; // https://sweetalert.js.org/guides/
 import '../styles/generalStyles.css';
-import { fontWeight } from "@mui/system";
 var moment = require('moment');
 
 //Стили заголовка
@@ -146,29 +145,30 @@ export default (props) => {
       setActiveMessageKey(getUUID())
 
       if(sortedDocList[0].read === false){
-        getReadState(0)
+         getReadState(sortedDocList[0].id)
       }
-      //  console.log("DOCLINCOM_MSGREAD", res.read)
+      console.log("DOCLINCOM_MSGREAD", sortedDocList)
     })
     .catch(function (error) {
       console.log("Collecting docList getIncomingsMessages error: ", error)
       return []
     })
   }
-  async function getReadState(index){
-    // await fetch(kseRESTApi + "/api/Messages/Incomings/SetRead?id=" + docList[index].id,
-    //   {
-    //     "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
-    //   }
-    // )
-    // .then(response => response.json())
-    // .then(function(res){
-    //   console.log("RES READ", res)
-    // })
-    // .catch(function (error) {
-    //   console.log("Collecting docList getIncomingsMessages error: ", error)
-    //   return []
-    // })
+  async function getReadState(id){
+    await fetch(kseRESTApi + "/api/Messages/SetRead?incomingMessageId=" + id,
+      {
+        "headers": { "content-type": "application/json", "Authorization": "Bearer " + props.token }
+      }
+    )
+    .then(response => response.json())
+    .then(function(res){
+      getIncomingsMessages()
+      console.log("RES READSTATE", res)
+    })
+    .catch(function (error) {
+      console.log("Collecting docList SetRead error: ", error)
+      return []
+    })
   }
   function getUUID(){
     return uuidv4()
@@ -267,7 +267,7 @@ export default (props) => {
       var prevPage = currIndex - 1
       setCurrIndex(prevPage)
       if(docList[currIndex - 1].read === false){
-        getReadState(currIndex - 1)
+        getReadState(docList[currIndex - 1].id)
       }
     }
     else{
@@ -284,7 +284,7 @@ export default (props) => {
     else{
       setCurrIndex(currIndex + 1)
       if(docList[currIndex + 1].read === false){
-        getReadState(currIndex + 1)
+        getReadState(docList[currIndex + 1].id)
       }
     }    
   }
