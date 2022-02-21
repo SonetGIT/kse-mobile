@@ -10,7 +10,6 @@ import { GiPapers } from 'react-icons/gi';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import { AiFillFolder } from 'react-icons/ai';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
-
 // Library
 import "../styles/generalStyles.css"
 import { v4 as uuidv4 } from 'uuid';
@@ -47,9 +46,7 @@ export default (props) => {
   const [expanded, setExpanded] = useState(["markets"])
   const [nodes, setNodes] = useState([])
   const [treeKey, setTreeKey] = useState(null)
-   
-  // FIELDS
-  const [fieldValue, setFieldValue] = useState({}) 
+
   function getModalStyle() {
     const top = 7;
     const left = 2;
@@ -70,6 +67,8 @@ export default (props) => {
     ]
     let enums = await props.getEnumDataByList(enumDataToCollect)
     createTree(enums)
+    let body = userProfile.settings;
+    console.log("TEST", body)
   },[])
   
   function swAllert(text, icon){
@@ -154,7 +153,6 @@ export default (props) => {
         }
       }
       }
-      
     }
     setNodes(newNode)
     console.log("NEW NODE", newNode)

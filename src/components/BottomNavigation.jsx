@@ -294,8 +294,7 @@ export default function FixedBottomNavigation(props) {
         {showNews === true &&
           <News
             setShowNews={setShowNews}
-          />
-        
+          />        
         }
         </BottomNavigation>
       </Paper>

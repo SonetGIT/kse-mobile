@@ -9,12 +9,12 @@ export default function App() {
   const [userProfile, setUserProfile] = useState({});
   const [token, setToken] = useState(null);
   // wsEndpoint - IP адрес сокета, для обмена данными с клиентом
-  // const [wsEndpoint] = useState("ws://192.168.2.109:3120") //Local
-  // const [kseRESTApi] = useState("http://192.168.2.150:5002") //Local KFB main REST
+  const [wsEndpoint] = useState("ws://192.168.2.109:3120") //Local
+  const [kseRESTApi] = useState("http://192.168.2.150:5002") //Local KFB main REST
 
-  const [ip] = useState(window.location.hostname) //Server KFB main REST IP
-  const [wsEndpoint] = useState("ws://"+ ip +":3120") //WS Server
-  const [kseRESTApi] = useState("http://"+ ip +":5002") //Server KFB main RESTs
+  // const [ip] = useState(window.location.hostname) //Server KFB main REST IP
+  // const [wsEndpoint] = useState("ws://"+ ip +":3120") //WS Server
+  // const [kseRESTApi] = useState("http://"+ ip +":5002") //Server KFB main RESTs
 
   function authenticate(profile, token){
     setUserProfile(profile)

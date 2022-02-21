@@ -19,14 +19,14 @@ export default function Home(props) {
   const [userProfile, setUserProfile] = useState(props.userProfile);
   // console.log("USERNAME", userProfile.lastName)  
   const [authenticated, setAuthenticated] = useState(props.authenticated);
+  const [instrumentTables, setInstrumentTables] = useState([])
   
   //Выход из ситемы
   function exitSystemClick(){
     localStorage.removeItem("token")
     props.setAuthenticated(false)
     props.setUserProfile({})
-  }
-  
+  }  
   async function fetchDocList(docListApi){
     // console.log("API", kseRESTApi + docListApi)
     let docList = await fetch(kseRESTApi + docListApi, 
@@ -157,6 +157,159 @@ export default function Home(props) {
       progress: undefined,
     })
   }
+
+  /*ФИЛЬТР ИНСТРУМЕНТОВ*******************************************************************************************************************************/
+  // async function updateUserSettingsByType(settings){
+  //   // console.log("instrumentTables", instrumentTables)
+  //   if(settings.type === "instruments"){
+  //     let newUserSettings = []
+  //     for(let f=0; f<instrumentTables.length; f++){
+  //       if(instrumentTables[f].id === settings.id){
+  //         newUserSettings.push(settings)
+  //       }
+  //       else{
+  //         newUserSettings.push(instrumentTables[f])
+  //       }
+  //     }
+  //     // console.log("UPD SET", newUserSettings)
+  //     socket.send(JSON.stringify({
+  //       commandType: "updateFinanceInstruments",
+  //       userList: [userProfile.userId]
+  //     }))
+  //     setInstrumentTables(newUserSettings)
+  //     let body = {
+  //       instruments: newUserSettings,
+  //       fixing: fixingTables,
+  //       bids: bidsTables,
+  //       deals: dealsTables,
+  //       instrumentFilters: instrumentFilters
+  //     }
+  //     updateUserSettings(body)
+  //   }
+  //   else if(settings.type === "fixing"){
+  //     let newUserSettings = []
+  //     for(let f=0; f<fixingTables.length; f++){
+  //       if(fixingTables[f].id === settings.id){
+  //         newUserSettings.push(settings)
+  //       }
+  //       else{
+  //         newUserSettings.push(fixingTables[f])
+  //       }
+  //     }
+  //     // console.log("UPD SET", newUserSettings)
+  //     socket.send(JSON.stringify({
+  //       commandType: "updateFinanceInstrumentsFixing",
+  //       userList: [userProfile.userId]
+  //     }))
+  //     setFixingTables(newUserSettings)
+  //     let body = {
+  //       instruments: instrumentTables,
+  //       fixing: newUserSettings,
+  //       bids: bidsTables,
+  //       deals: dealsTables,
+  //       instrumentFilters: instrumentFilters
+  //     }
+  //     updateUserSettings(body)
+  //   }
+  //   else if(settings.type === "bids"){
+  //     let newUserSettings = []
+  //     for(let f=0; f<bidsTables.length; f++){
+  //       if(bidsTables[f].id === settings.id){
+  //         newUserSettings.push(settings)
+  //       }
+  //       else{
+  //         newUserSettings.push(bidsTables[f])
+  //       }
+  //     }
+  //     // console.log("UPD SET", newUserSettings)
+  //     socket.send(JSON.stringify({
+  //       commandType: "updateActiveBids",
+  //       userList: [userProfile.userId]
+  //     }))
+  //     setBidsTables(newUserSettings)
+  //     let body = {
+  //       instruments: instrumentTables,
+  //       fixing: fixingTables,
+  //       bids: newUserSettings,
+  //       deals: dealsTables,
+  //       instrumentFilters: instrumentFilters
+  //     }
+  //     updateUserSettings(body)
+  //   }
+  //   else if(settings.type === "deals"){
+  //     let newUserSettings = []
+  //     for(let f=0; f<dealsTables.length; f++){
+  //       if(dealsTables[f].id === settings.id){
+  //         newUserSettings.push(settings)
+  //       }
+  //       else{
+  //         // console.log("NOT", instrumentTables[f])
+  //         newUserSettings.push(dealsTables[f])
+  //       }
+  //     }
+  //     // console.log("UPD SET", newUserSettings)
+  //     socket.send(JSON.stringify({
+  //       commandType: "updateDeals",
+  //       userList: [userProfile.userId]
+  //     }))
+  //     setDealsTables(newUserSettings)
+  //     let body = {
+  //       instruments: instrumentTables,
+  //       fixing: fixingTables,
+  //       bids: bidsTables,
+  //       deals: newUserSettings,
+  //       instrumentFilters: instrumentFilters
+  //     }
+  //     updateUserSettings(body)
+  //   }
+  //   else if(settings.type === "instrumentFilters"){
+  //     socket.send(JSON.stringify({
+  //       commandType: "updateFinanceInstruments",
+  //       userList: [userProfile.userId]
+  //     }))
+  //     setInstrumentFilters(settings.instrumentFilters)
+  //     let body = {
+  //       instruments: instrumentTables,
+  //       fixing: fixingTables,
+  //       bids: bidsTables,
+  //       deals: dealsTables,
+  //       instrumentFilters: settings.instrumentFilters
+  //     }
+  //     console.log("UPD SET", settings, body)
+  //     updateUserSettings(body)
+  //   }
+  // }
+  // async function updateUserSettings(){
+  //   if(userProfile.settings === "instruments"){
+  //   let newUserSettings = []
+  //     for(let f=0; f<instrumentTables.length; f++){
+  //       if(instrumentTables[f].id === userProfile.settings.id){
+  //         newUserSettings.push(userProfile.settings)
+  //       }
+  //       else{
+  //         newUserSettings.push(instrumentTables[f])
+  //       }
+  //     }
+      
+  //   let body = {
+  //     instruments: newUserSettings,      
+  //   }
+  //   console.log("BODY", body)
+  //   await fetch(
+  //     kseRESTApi + "/api/users/UpdateUserSettings",
+  //     {
+  //       "headers": {"content-type": "application/json", "Authorization": "Bearer " + token},
+  //       "method": "POST",
+  //       "body": JSON.stringify(body)
+  //     }
+  //   )
+  //   .then(response => response.json())
+  //   .then(function(res){
+  //     console.log("RES", res)
+  //   })
+  // }
+  // }
+  /***************************************************************************************************************************************************/
   /*ОТРИСОВКА*****************************************************************************************************************************************/
   return (
     <div style={{width:'100%', height:'100vh'}}>

@@ -297,7 +297,7 @@ export default (props) => {
             <tr>      
               <td
                 width="99%" 
-                style={{width:'100%', color:'white', fontFamily:'Roboto', fontSize:14, fontWeight:'bold', textAlign:'center'}}>
+                style={{width:'100%', color:'white', font:'Roboto, bold', textAlign:'center'}}>
                   Входящие сообщения
               </td>
               <td onClick={()=> props.setShowIncomMessages(false)}><IoIosCloseCircleOutline size='20px' style={{color:'white', paddingTop:2}}/></td>

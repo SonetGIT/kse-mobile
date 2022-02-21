@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "kse-mobile",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "@material/select": "^13.0.0",
     "@mui/icons-material": "^5.2.0",
     "@mui/lab": "^5.0.0-alpha.61",
+    "@mui/material": "^5.4.2",
     "@mui/styled-engine": "^5.2.0",
     "@nivo/line": "^0.78.0",
     "@reduxjs/toolkit": "^1.6.2",
